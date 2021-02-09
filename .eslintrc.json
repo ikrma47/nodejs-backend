@@ -1,0 +1,24 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 12
+    },
+    "rules": {
+        "no-var": "off",
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "global-require": "off",
+        "no-console": "off",
+        "eqeqeq": "off",
+        "import/no-unresolved": "off"
+    }
+}

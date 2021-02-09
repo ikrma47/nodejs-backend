@@ -1,0 +1,17 @@
+module.exports = {
+  academics: require('./academics'),
+  dashboard: require('./dashboard'),
+  experience: require('./experience'),
+  login: require('./login'),
+  profile: require('./profile'),
+  signup: require('./signup'),
+  course: require('./course'),
+  department: require('./department'),
+  preferences: require('./preference'),
+  resetPassword: require('./resetPassword'),
+  verifyEmail: require('./verifyEmail'),
+  emailOTP: require('./emailOtp'),
+  getSignedUrl: require('./getSignedUrl'),
+  applicationStatus: require('./applicationStatus'),
+  documents: require('./documents'),
+};
