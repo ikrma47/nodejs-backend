@@ -29,6 +29,8 @@ var ApplicationStatus = db.define('applicationStatus',
     isSeventhSemesterDmc: { type: BOOLEAN, defaultValue: false },
     isEighthSemesterDmc: { type: BOOLEAN, defaultValue: false },
     isBsCertificate: { type: BOOLEAN, defaultValue: false },
+    acceptedBy: { type: STRING },
+    rejectedBy: { type: STRING },
   },
   { freezeTableName: true, createdAt: true, updatedAt: true });
 
