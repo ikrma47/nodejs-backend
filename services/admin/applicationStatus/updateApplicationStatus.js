@@ -1,4 +1,5 @@
 var { ApplicationStatus } = require('../../../models/models');
+var getApplicationStatus = require('../../common/applicationStatus/getApplicationStatus');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
@@ -8,13 +9,9 @@ module.exports = async (req, res) => {
       { where: { appId } },
     );
     if (applicationStatus) {
-      res.json({
-        success: true,
-        message: 'successfully updated application status',
-        data: [],
-      });
+      getApplicationStatus(req, res);
     } else {
-      res.status(400).json({
+      res.status(404).json({
         success: false,
         message: 'something gone wrong try again!',
         data: [],

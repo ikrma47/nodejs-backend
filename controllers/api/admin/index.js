@@ -3,4 +3,5 @@ module.exports = {
   department: require('./department'),
   application: require('./applications'),
   dashboard: require('./dashboard'),
+  applicationStatus: require('./applicationStatus'),
 };
