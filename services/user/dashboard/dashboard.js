@@ -1,21 +1,11 @@
-const { Users, ApplicationStatus, Details } = require('../../../models/models');
+const { Details } = require('../../../models/models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const user = await Users.findOne({
+    const user = await Details.findOne({
       where: { appId },
-      attributes: [],
-      include: [
-        {
-          model: ApplicationStatus,
-          attributes: { exclude: ['id', 'appId', 'createdAt', 'updatedAt'] },
-        },
-        {
-          model: Details,
-          attributes: ['name', 'image', 'courseCategory'],
-        },
-      ],
+      attributes: ['appId', 'name', 'image', 'courseCategory'],
     });
     res.status(200).json({
       success: true,
