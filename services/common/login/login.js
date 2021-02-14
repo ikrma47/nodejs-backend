@@ -26,6 +26,7 @@ module.exports = async (req, res) => {
                 token,
                 isAdmin: user.isAdmin,
                 appId: user.appId,
+                email: user.email,
                 isVerified: user.isVerified,
               },
             ],
