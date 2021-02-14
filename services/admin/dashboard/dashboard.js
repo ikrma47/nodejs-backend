@@ -7,8 +7,8 @@ module.exports = async (req, res) => {
       attributes: ['appId'],
     });
     const acceptedApplications = await ApplicationStatus.findAll({
+      attributes: ['appId', 'acceptedBy'],
       where: { isAccepted: true },
-      attributes: ['appId'],
     });
     const submittedAppIds = submittedApplications.map(({ appId }) => Number(appId));
     const acceptedAppIds = acceptedApplications.map(({ appId }) => Number(appId));
@@ -21,10 +21,13 @@ module.exports = async (req, res) => {
       where: { appId: acceptedAppIds.length > 0 ? acceptedAppIds : [0] },
       attributes: ['appId', 'image', 'courseCategory', 'name'],
     });
+    const acceptedApplicants = acceptedApplicantsDetails
+      // eslint-disable-next-line max-len
+      .map((detail, idx) => ({ ...detail.dataValues, acceptedBy: acceptedApplications[idx].acceptedBy }));
     res.json({
       success: true,
       message: 'fetched successfully!',
-      data: [{ submittedApplicantsDetails }, { acceptedApplicantsDetails }],
+      data: [{ submittedApplicantsDetails }, { acceptedApplicantsDetails: acceptedApplicants }],
     });
   } catch (err) {
     console.log(err);
