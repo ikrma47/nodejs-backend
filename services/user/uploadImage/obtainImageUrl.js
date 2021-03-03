@@ -1,4 +1,5 @@
 var aws = require('aws-sdk');
+var { genOTP: generateRandomNumber } = require('../../../lib/utils');
 
 aws.config.update({
   region: process.env.REGION,
@@ -13,7 +14,7 @@ module.exports = (req, res) => {
   // Set up the payload of what we are sending to the S3 api
   const s3Params = {
     Bucket: process.env.Bucket,
-    Key: fileName,
+    Key: fileName + generateRandomNumber(),
     Expires: 60 * 10,
     ContentType: fileType,
     ACL: 'public-read',
