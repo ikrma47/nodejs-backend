@@ -38,14 +38,14 @@ var {
     console.log('user records table is synced');
     await Experience.sync({ alter: true });
     console.log('experience table is synced');
+    await Departments.sync({ alter: true });
+    console.log('department table is synced');
     await Courses.sync({ alter: true });
     console.log('course table is synced');
     await Preferences.sync({ alter: true });
     console.log('pereference table is synced');
     await CoursePreference.sync({ alter: true });
     console.log('coursePreference table is synced');
-    await Departments.sync({ alter: true });
-    console.log('department table is synced');
     await DepartmentCourse.sync({ alter: true });
     console.log('departmentCourse table is synced');
     await ApplicationStatus.sync({ alter: true });
@@ -57,7 +57,6 @@ var {
   }
 })();
 
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`server is listening on port ${PORT}`);
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`server is listening on port ${process.env.PORT}`);
 });
