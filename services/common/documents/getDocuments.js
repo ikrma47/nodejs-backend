@@ -1,9 +1,9 @@
-var { UploadedDocuments } = require('../../../models/models');
+var { UploadedDocument } = require('../../../models/models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const documents = await UploadedDocuments.findOne({
+    const documents = await UploadedDocument.findOne({
       where: { appId },
       attributes: { exclude: ['id', 'appId', 'createdAt', 'updatedAt'] },
     });
