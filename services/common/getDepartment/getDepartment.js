@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
       attributes: ['id', 'departmentName'],
     });
     res.status(200).json({
-      success: `${!!departments.length}`,
+      success: !!departments.length,
       message: `${departments.length ? 'successfully fetched' : 'no department found'}`,
       data: [...departments],
     });
