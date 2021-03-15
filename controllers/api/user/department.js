@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var passport = require('passport');
-var getDepartment = require('../../../services/common/getDepartment/getDepartment');
+var getDepartment = require('../../../services/common/department/getDepartment');
 
 router.get(
   '/',
