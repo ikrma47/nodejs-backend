@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
       ],
     });
     res.json({
-      success: `${departmentCourses.length > 0}`,
+      success: !!departmentCourses.length,
       message: `${departmentCourses.length > 0 ? 'successfully fetched' : 'no course found'}`,
       data: [...departmentCourses],
     });
