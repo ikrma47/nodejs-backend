@@ -1,28 +1,63 @@
-var {
-  STRING, BIGINT, INTEGER, BOOLEAN,
-} = require('sequelize').DataTypes;
-var db = require('../config/database');
-
-var Users = db.define(
-  'User',
-  {
-    appId: {
-      type: BIGINT,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
-      unique: true,
+function UserModel(sequelize, DataTypes) {
+  const Users = sequelize.define(
+    'User',
+    {
+      appId: {
+        type: DataTypes.BIGINT,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+        unique: true,
+      },
+      email: { type: DataTypes.STRING, primaryKey: true, allowNull: false },
+      cnic: { type: DataTypes.STRING, primaryKey: true, allowNull: false },
+      password: { type: DataTypes.STRING, allowNull: false },
+      isVerified: { type: DataTypes.BOOLEAN, defaultValue: false },
+      otp: { type: DataTypes.INTEGER, allowNull: true },
+      isAdmin: { type: DataTypes.BOOLEAN, defaultValue: false },
     },
-    email: { type: STRING, primaryKey: true, allowNull: false },
-    cnic: { type: STRING, primaryKey: true, allowNull: false },
-    password: { type: STRING, allowNull: false },
-    isVerified: { type: BOOLEAN, defaultValue: false },
-    otp: { type: INTEGER, allowNull: true },
-    isAdmin: { type: BOOLEAN, defaultValue: false },
-  },
-  {
-    tableName: 'users', timestamps: true, createdAt: true, updatedAt: true,
-  },
-);
+    {
+      tableName: 'users', timestamps: true, createdAt: true, updatedAt: true,
+    },
+  );
 
-module.exports = Users;
+  Users.associate = function association(model) {
+    Users.hasOne(model.ApplicationStatus, {
+      sourceKey: 'appId',
+      foreignKey: {
+        name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
+      },
+    });
+
+    Users.hasMany(model.UploadedDocument, {
+      sourceKey: 'appId',
+      foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
+    });
+
+    Users.hasMany(model.CoursePreference, {
+      sourceKey: 'appId',
+      foreignKey: { name: 'appId', type: DataTypes.BIGINT },
+    });
+
+    Users.hasMany(model.Experience, {
+      sourceKey: 'appId',
+      foreignKey: { name: 'appId', type: DataTypes.BIGINT },
+    });
+
+    Users.hasMany(model.UserAcademicRecords, {
+      sourceKey: 'appId',
+      foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
+    });
+
+    Users.hasOne(model.Details, {
+      sourceKey: 'appId',
+      foreignKey: {
+        name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
+      },
+    });
+  };
+
+  return { Users };
+}
+
+module.exports = UserModel;
