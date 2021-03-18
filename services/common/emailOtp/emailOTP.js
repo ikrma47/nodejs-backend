@@ -1,5 +1,5 @@
 var { Op } = require('sequelize');
-const { genOTP, sendOTP } = require('../../../lib/utils');
+var utils = require('../../../lib/utils');
 var { Users } = require('../../../models/models');
 
 module.exports = async (req, res) => {
@@ -11,14 +11,14 @@ module.exports = async (req, res) => {
       },
     });
     if (user) {
-      user.otp = genOTP();
+      user.otp = utils.genOTP();
       await user.save();
-      sendOTP(user);
+      utils.sendOTP(user);
       setTimeout(async () => {
         user.otp = null;
         await user.save();
       }, 600000);
-      res.json({
+      res.status(200).json({
         success: true,
         message: 'OTP has been sent to your email address',
         data: [{ email: user.email }],
