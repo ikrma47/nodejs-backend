@@ -1,37 +1,46 @@
-var { BOOLEAN, STRING } = require('sequelize').DataTypes;
-var db = require('../config/database');
+function ApplicationStatusModel(sequelize, DataTypes) {
+  const ApplicationStatus = sequelize.define('applicationStatus',
+    {
+      isSubmitted: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isAccepted: { type: DataTypes.BOOLEAN, defaultValue: false },
+      comments: { type: DataTypes.STRING, allowNull: true },
+      isProfile: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isCourseCategory: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isFirstYear: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isSecondYear: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isThirdYear: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isFinalYear: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isGAT: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isMS: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isExperience: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isPreference: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isCnicFront: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isCnicBack: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isMatricCertificate: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isIntermediateCertificate: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isFirstSemesterDmc: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isSecondSemesterDmc: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isThirdSemesterDmc: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isFourthSemesterDmc: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isFifthSemesterDmc: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isSixthSemesterDmc: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isSeventhSemesterDmc: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isEighthSemesterDmc: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isBsCertificate: { type: DataTypes.BOOLEAN, defaultValue: false },
+      acceptedBy: { type: DataTypes.STRING },
+      rejectedBy: { type: DataTypes.STRING },
+    },
+    { freezeTableName: true, createdAt: true, updatedAt: true });
 
-var ApplicationStatus = db.define('applicationStatus',
-  {
-    isSubmitted: { type: BOOLEAN, defaultValue: false },
-    isAccepted: { type: BOOLEAN, defaultValue: false },
-    comments: { type: STRING, allowNull: true },
-    isProfile: { type: BOOLEAN, defaultValue: false },
-    isCourseCategory: { type: BOOLEAN, defaultValue: false },
-    isFirstYear: { type: BOOLEAN, defaultValue: false },
-    isSecondYear: { type: BOOLEAN, defaultValue: false },
-    isThirdYear: { type: BOOLEAN, defaultValue: false },
-    isFinalYear: { type: BOOLEAN, defaultValue: false },
-    isGAT: { type: BOOLEAN, defaultValue: false },
-    isMS: { type: BOOLEAN, defaultValue: false },
-    isExperience: { type: BOOLEAN, defaultValue: false },
-    isPreference: { type: BOOLEAN, defaultValue: false },
-    isCnicFront: { type: BOOLEAN, defaultValue: false },
-    isCnicBack: { type: BOOLEAN, defaultValue: false },
-    isMatricCertificate: { type: BOOLEAN, defaultValue: false },
-    isIntermediateCertificate: { type: BOOLEAN, defaultValue: false },
-    isFirstSemesterDmc: { type: BOOLEAN, defaultValue: false },
-    isSecondSemesterDmc: { type: BOOLEAN, defaultValue: false },
-    isThirdSemesterDmc: { type: BOOLEAN, defaultValue: false },
-    isFourthSemesterDmc: { type: BOOLEAN, defaultValue: false },
-    isFifthSemesterDmc: { type: BOOLEAN, defaultValue: false },
-    isSixthSemesterDmc: { type: BOOLEAN, defaultValue: false },
-    isSeventhSemesterDmc: { type: BOOLEAN, defaultValue: false },
-    isEighthSemesterDmc: { type: BOOLEAN, defaultValue: false },
-    isBsCertificate: { type: BOOLEAN, defaultValue: false },
-    acceptedBy: { type: STRING },
-    rejectedBy: { type: STRING },
-  },
-  { freezeTableName: true, createdAt: true, updatedAt: true });
+  ApplicationStatus.associate = function association(model) {
+    ApplicationStatus.belongsTo(model.Users, {
+      targetKey: 'appId',
+      foreignKey: {
+        name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
+      },
+    });
+  };
 
-module.exports = ApplicationStatus;
+  return { ApplicationStatus };
+}
+module.exports = ApplicationStatusModel;

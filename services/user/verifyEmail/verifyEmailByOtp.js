@@ -9,7 +9,7 @@ var {
   UserAcademicRecords,
   Academics,
   ExamYears,
-  UploadedDocuments,
+  UploadedDocument,
 } = require('../../../models/models');
 
 module.exports = async (req, res) => {
@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
       await Details.create({ appId: user.appId });
       await Address.create({ appId: user.appId });
       await PhoneNumbers.create({ appId: user.appId });
-      await UploadedDocuments.create({ appId: user.appId });
+      await UploadedDocument.create({ appId: user.appId });
 
       const [
         firstYear,

@@ -1,6 +1,6 @@
 var { Op } = require('sequelize');
 var { Users } = require('../../../models/models');
-var { verifyPassword, issueJwt } = require('../../../lib/utils');
+var utils = require('../../../lib/utils');
 
 module.exports = async (req, res) => {
   const { emailOrCnic, password } = req.body;
@@ -10,15 +10,14 @@ module.exports = async (req, res) => {
     });
     if (user) {
       if (
-        verifyPassword({
+        utils.verifyPassword({
           passwordFromUser: password,
           passwordHashFromDb: user.password,
         })
       ) {
         if (user.isVerified) {
-          const token = issueJwt(user.appId);
-          console.log(token);
-          res.json({
+          const token = utils.issueJwt(user.appId);
+          res.status(200).json({
             success: true,
             message: 'logged in successfullys',
             data: [
@@ -39,7 +38,7 @@ module.exports = async (req, res) => {
           });
         }
       } else {
-        res.status(401).json({
+        res.status(400).json({
           success: false,
           message: 'username or Password is incorrect',
           data: [],
