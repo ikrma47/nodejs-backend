@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     const acceptedApplicants = acceptedApplicantsDetails
       // eslint-disable-next-line max-len
       .map((detail, idx) => ({ ...detail.dataValues, acceptedBy: acceptedApplications[idx].acceptedBy }));
-    res.json({
+    res.status(200).json({
       success: true,
       message: 'fetched successfully!',
       data: [{ submittedApplicantsDetails }, { acceptedApplicantsDetails: acceptedApplicants }],
