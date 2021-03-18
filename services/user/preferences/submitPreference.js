@@ -1,7 +1,7 @@
 var {
   Preferences, CoursePreference, Courses, Departments,
 } = require('../../../models/models');
-var getPreferences = require('../../common/getPreferences/getPreference');
+var getPreferences = require('../../common/preferences/getPreference');
 
 module.exports = async (req, res) => {
   const { preference, courseName, departmentName } = req.body;

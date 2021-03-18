@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
         { model: Preferences, attributes: ['preference'] },
       ],
     });
-    res.json({
+    res.status(200).json({
       success: true,
       message:
         `${preferences.length ? 'fetched preferences successfully' : "you haven't applied yet"}`,

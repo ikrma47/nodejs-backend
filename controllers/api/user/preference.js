@@ -1,6 +1,6 @@
 var router = require('express').Router();
 const passport = require('passport');
-var getPreferences = require('../../../services/common/getPreferences/getPreference');
+var getPreferences = require('../../../services/common/preferences/getPreference');
 var submitPreferences = require('../../../services/user/preferences/submitPreference');
 var deletePreferences = require('../../../services/user/preferences/deletePreference');
 
