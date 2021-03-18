@@ -1,10 +1,15 @@
-var { STRING } = require('sequelize').DataTypes;
-var db = require('../config/database');
+function DepartmentModel(sequelize, DataTypes) {
+  var Departments = sequelize.define(
+    'department',
+    { departmentName: { type: DataTypes.STRING, allowNull: false } },
+    { tableName: 'departments', timestamps: true, createdAt: true },
+  );
+  Departments.associate = function association(model) {
+    Departments.belongsToMany(model.Courses, { through: model.DepartmentCourse });
+    Departments.hasMany(model.CoursePreference);
+    Departments.hasMany(model.DepartmentCourse);
+  };
 
-var Departments = db.define(
-  'department',
-  { departmentName: { type: STRING, allowNull: false } },
-  { tableName: 'departments', timestamps: true, createdAt: true },
-);
-
-module.exports = Departments;
+  return { Departments };
+}
+module.exports = DepartmentModel;

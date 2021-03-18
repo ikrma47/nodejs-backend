@@ -1,17 +1,24 @@
-var { STRING, BIGINT } = require('sequelize').DataTypes;
-var db = require('../config/database');
+function ExperienceModel(sequelize, DataTypes) {
+  const Experience = sequelize.define(
+    'experience',
+    {
+      jobTitle: { type: DataTypes.STRING, allowNull: false },
+      organization: { type: DataTypes.STRING, allowNull: false },
+      from: { type: DataTypes.STRING, allowNull: false },
+      to: { type: DataTypes.STRING, allowNull: false },
+      salary: { type: DataTypes.BIGINT, allowNull: false },
+      duty: { type: DataTypes.STRING, allowNull: false },
+    },
+    { freezeTableName: true, timestamps: true, createdAt: true },
+  );
 
-var Experience = db.define(
-  'experience',
-  {
-    jobTitle: { type: STRING, allowNull: false },
-    organization: { type: STRING, allowNull: false },
-    from: { type: STRING, allowNull: false },
-    to: { type: STRING, allowNull: false },
-    salary: { type: BIGINT, allowNull: false },
-    duty: { type: STRING, allowNull: false },
-  },
-  { freezeTableName: true, timestamps: true, createdAt: true },
-);
+  Experience.associate = function association(model) {
+    Experience.belongsTo(model.Users, {
+      targetKey: 'appId',
+      foreignKey: { name: 'appId', type: DataTypes.BIGINT },
+    });
+  };
 
-module.exports = Experience;
+  return { Experience };
+}
+module.exports = ExperienceModel;

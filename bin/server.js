@@ -15,7 +15,7 @@ var {
   Departments,
   Preferences,
   ApplicationStatus,
-  UploadedDocuments,
+  UploadedDocument,
 } = require('../models/models');
 
 (async () => {
@@ -50,7 +50,7 @@ var {
     console.log('departmentCourse table is synced');
     await ApplicationStatus.sync({ alter: true });
     console.log('application status table is synced');
-    await UploadedDocuments.sync({ alter: true });
+    await UploadedDocument.sync({ alter: true });
     console.log('uploaded documents table is synced');
   } catch (err) {
     console.log('error is ', err);

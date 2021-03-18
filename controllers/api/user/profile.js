@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var passport = require('passport');
-var getProfile = require('../../../services/common/getProfile/getProfile');
+var getProfile = require('../../../services/common/profile/getProfile');
 var updateProfileDetails = require('../../../services/user/profile/updateProfileDetails');
 const updateProfilePicture = require('../../../services/user/profile/updateProfilePicture');
 const updateCourseCategory = require('../../../services/user/profile/updateCourseCategory');
