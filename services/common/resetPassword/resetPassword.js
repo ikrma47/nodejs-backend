@@ -1,6 +1,6 @@
 var { Op } = require('sequelize');
 var { Users } = require('../../../models/models');
-var { passwordHash } = require('../../../lib/utils');
+var utils = require('../../../lib/utils');
 
 module.exports = async (req, res) => {
   const {
@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
     });
     if (user) {
       if (password == confirmPassword) {
-        user.password = passwordHash(password);
+        user.password = utils.passwordHash(password);
         user.otp = null;
         await user.save();
         res.status(200).json({
