@@ -9,12 +9,13 @@ aws.config.update({
 
 module.exports = (req, res) => {
   const { fileName, fileType } = req.body;
+  const hashedFileName = fileName.slice(0, fileName.lastIndexOf('.')) + generateRandomNumber() + generateRandomNumber() + fileName.slice(fileName.lastIndexOf('.'));
   const s3 = new aws.S3();
 
   // Set up the payload of what we are sending to the S3 api
   const s3Params = {
     Bucket: process.env.Bucket,
-    Key: fileName + generateRandomNumber(),
+    Key: hashedFileName,
     Expires: 60 * 10,
     ContentType: fileType,
     ACL: 'public-read',
@@ -30,7 +31,7 @@ module.exports = (req, res) => {
     // Data payload of what we are sending back, the url of the signedRequest and a URL where we can access the content after its saved.
     const returnData = {
       signedRequest: data,
-      url: `https://${process.env.Bucket}.s3.amazonaws.com/${fileName}`,
+      url: `https://${process.env.Bucket}.s3.amazonaws.com/${hashedFileName}`,
     };
     // Send it all back
     res.json({ success: true, message: 'url generated successfully', data: [returnData] });
