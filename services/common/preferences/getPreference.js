@@ -9,8 +9,7 @@ module.exports = async (req, res) => {
       where: { appId },
       attributes: [],
       include: [
-        { model: Courses, attributes: ['courseName'] },
-        { model: Departments, attributes: ['departmentName'] },
+        { model: Courses, attributes: ['courseName'], include: [{ model: Departments, attributes: ['departmentName'] }] },
         { model: Preferences, attributes: ['preference'] },
       ],
     });
