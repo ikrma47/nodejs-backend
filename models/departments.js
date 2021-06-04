@@ -6,8 +6,6 @@ function DepartmentModel(sequelize, DataTypes) {
   );
   Departments.associate = function association(model) {
     Departments.belongsToMany(model.Courses, { through: model.DepartmentCourse });
-    Departments.hasMany(model.CoursePreference);
-    Departments.hasMany(model.DepartmentCourse);
   };
 
   return { Departments };
