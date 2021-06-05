@@ -29,7 +29,7 @@ describe('Course And Preferences Models', function tests() {
       Departments, DepartmentCourse, Preferences, CoursePreference,
     });
     CoursePreference.associate({
-      Preferences, Users, Courses, Departments,
+      Preferences, Users, Courses,
     });
     DepartmentCourse.associate({ Departments, Courses });
   });
@@ -55,7 +55,6 @@ describe('Course And Preferences Models', function tests() {
     it('should have associations exist', function associationTest() {
       expect(CoursePreference.belongsTo).to.have.been.calledWith(Preferences);
       expect(CoursePreference.belongsTo).to.have.been.calledWith(Courses);
-      expect(CoursePreference.belongsTo).to.have.been.calledWith(Departments);
       expect(CoursePreference.belongsTo).to.have.been.calledWith(Users);
     });
 
