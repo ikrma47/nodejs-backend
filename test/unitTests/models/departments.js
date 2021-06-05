@@ -15,11 +15,11 @@ chai.use(sinonChai);
 
 describe('Department Model', function test() {
   const { Departments } = DepartmentModel(sequelize, dataTypes);
-  const { Courses, CoursePreference, DepartmentCourse } = CoursesModel(sequelize, dataTypes);
+  const { Courses, DepartmentCourse } = CoursesModel(sequelize, dataTypes);
   const departments = new Departments();
 
   before('creating associations', function associations() {
-    Departments.associate({ Courses, CoursePreference, DepartmentCourse });
+    Departments.associate({ Courses, DepartmentCourse });
   });
 
   checkModelName(Departments)('department');
@@ -27,7 +27,6 @@ describe('Department Model', function test() {
   it('should have associations exist', function associationTest() {
     expect(Departments.belongsToMany)
       .to.have.been.calledWith(Courses, { through: DepartmentCourse });
-    expect(Departments.hasMany).to.have.been.calledWith(CoursePreference);
     expect(Departments.hasMany).to.have.been.calledWith(DepartmentCourse);
   });
 
