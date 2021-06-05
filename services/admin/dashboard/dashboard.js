@@ -1,33 +1,14 @@
-var { ApplicationStatus, Details } = require('../../../models/models');
+var { getApplications } = require('../applications/getApplications');
 
 module.exports = async (req, res) => {
   try {
-    const submittedApplications = await ApplicationStatus.findAll({
-      where: { isSubmitted: true, isAccepted: false },
-      attributes: ['appId'],
-    });
-    const acceptedApplications = await ApplicationStatus.findAll({
-      attributes: ['appId', 'acceptedBy'],
-      where: { isAccepted: true },
-    });
-    const submittedAppIds = submittedApplications.map(({ appId }) => Number(appId));
-    const acceptedAppIds = acceptedApplications.map(({ appId }) => Number(appId));
+    const submittedApplicantsDetails = await getApplications({ ...req.query, isAccepted: false });
+    const acceptedApplicantsDetails = await getApplications({ ...req.query, isAccepted: true });
 
-    const submittedApplicantsDetails = await Details.findAll({
-      where: { appId: submittedAppIds.length > 0 ? submittedAppIds : [0] },
-      attributes: ['appId', 'image', 'courseCategory', 'name'],
-    });
-    const acceptedApplicantsDetails = await Details.findAll({
-      where: { appId: acceptedAppIds.length > 0 ? acceptedAppIds : [0] },
-      attributes: ['appId', 'image', 'courseCategory', 'name'],
-    });
-    const acceptedApplicants = acceptedApplicantsDetails
-      // eslint-disable-next-line max-len
-      .map((detail, idx) => ({ ...detail.dataValues, acceptedBy: acceptedApplications[idx].acceptedBy }));
     res.status(200).json({
       success: true,
       message: 'fetched successfully!',
-      data: [{ submittedApplicantsDetails }, { acceptedApplicantsDetails: acceptedApplicants }],
+      data: [{ submittedApplicantsDetails }, { acceptedApplicantsDetails }],
     });
   } catch (err) {
     console.log(err);

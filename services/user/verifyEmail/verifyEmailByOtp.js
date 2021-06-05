@@ -23,7 +23,6 @@ module.exports = async (req, res) => {
     if (user) {
       user.otp = null;
       user.isVerified = true;
-      await user.save();
 
       await ApplicationStatus.create({ appId: user.appId });
       await Details.create({ appId: user.appId });
@@ -59,6 +58,7 @@ module.exports = async (req, res) => {
       ]);
 
       const token = issueJwt(user.appId);
+      await user.save();
       res.json({
         success: true,
         message: 'Email verified successfully',
