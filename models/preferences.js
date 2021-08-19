@@ -6,7 +6,7 @@ function PreferenceModel(sequelize, DataTypes) {
   );
 
   Preferences.associate = function association(model) {
-    Preferences.belongsToMany(model.Courses, { through: model.CoursePreference });
+    Preferences.belongsToMany(model.OfferedProgram, { through: model.CoursePreference });
     Preferences.hasMany(model.CoursePreference);
   };
 
