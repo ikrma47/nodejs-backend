@@ -10,31 +10,14 @@ var {
   CoursePreference,
   DepartmentCourse,
   ApplicationStatus,
+  OfferedProgram,
 } = require('../../../models/models');
 
 const maximumNumber = 99999999;
 const smallestNumber = 0;
 const anyString = '%';
 
-module.exports = async (req, res) => {
-  try {
-    const applicants = await getApplications(req.query);
-    res.status(200).json({
-      success: true,
-      message: 'fetched successfully',
-      data: [...applicants],
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      message: 'Server Error',
-      data: [],
-    });
-  }
-};
-
-module.exports.getApplications = function getApplications({
+function getApplications({
   appId = anyString,
   appIdGreaterThan = smallestNumber,
   appIdSmallerThan = maximumNumber,
@@ -81,15 +64,8 @@ module.exports.getApplications = function getApplications({
               attributes: [],
               include: [
                 {
-                  model: Courses,
+                  model: OfferedProgram,
                   attributes: [],
-                  where: {
-                    courseName: {
-                      [Op.like]: courseName,
-                    },
-                  },
-                  // right: true,
-                  // required: false,
                   include: [
                     {
                       model: DepartmentCourse,
@@ -103,8 +79,15 @@ module.exports.getApplications = function getApplications({
                               [Op.like]: departmentName,
                             },
                           },
-                          // right: true,
-                          // required: false,
+                        },
+                        {
+                          model: Courses,
+                          attributes: [],
+                          where: {
+                            courseName: {
+                              [Op.like]: courseName,
+                            },
+                          },
                         },
                       ],
                     },
@@ -119,4 +102,23 @@ module.exports.getApplications = function getApplications({
   } catch (error) {
     return error;
   }
+}
+module.exports = async (req, res) => {
+  try {
+    const applicants = await getApplications(req.query);
+    res.status(200).json({
+      success: true,
+      message: 'fetched successfully',
+      data: [...applicants],
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      data: [],
+    });
+  }
 };
+
+module.exports.getApplications = getApplications;
