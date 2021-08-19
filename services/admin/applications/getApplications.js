@@ -57,7 +57,7 @@ module.exports.getApplications = function getApplications({
       include: [
         {
           model: Users,
-          attributes: ['appId', "cnic"],
+          attributes: ['appId', 'cnic'],
           where: {
             isAdmin: false,
             cnic: { [Op.like]: cnic == '%' ? cnic : `%${cnic}%` },
