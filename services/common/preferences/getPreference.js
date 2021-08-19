@@ -1,5 +1,5 @@
 var {
-  Preferences, CoursePreference, Courses, Departments,
+  Preferences, CoursePreference, Courses, Departments, OfferedProgram, DepartmentCourse,
 } = require('../../../models/models');
 
 module.exports = async (req, res) => {
@@ -9,7 +9,20 @@ module.exports = async (req, res) => {
       where: { appId },
       attributes: [],
       include: [
-        { model: Courses, attributes: ['courseName'], include: [{ model: Departments, attributes: ['departmentName'] }] },
+        {
+          model: OfferedProgram,
+          attributes: ['id'],
+          include: [
+            {
+              model: DepartmentCourse,
+              attributes: ['id'],
+              include: [
+                { model: Courses, attributes: ['id', 'courseName'] },
+                { model: Departments, attributes: ['id', 'departmentName'] },
+              ],
+            },
+          ],
+        },
         { model: Preferences, attributes: ['preference'] },
       ],
     });
