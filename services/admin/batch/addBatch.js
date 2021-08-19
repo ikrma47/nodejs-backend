@@ -1,3 +1,4 @@
+var { Op } = require('sequelize');
 var {
   Batch,
   AcademicTerm,
@@ -10,7 +11,11 @@ module.exports = async (req, res) => {
   } = req.body;
   try {
     const { id } = await AcademicTerm.findOne({ where: { termName: term } });
-    const batchData = await Batch.findOne({ where: { year: batch, academicTermId: id } });
+    const batchData = await Batch.findOne({
+      where: {
+        [Op.or]: [{ year: batch, academicTermId: id }, { isAdmissionOpen: true }],
+      },
+    });
     if (!batchData) {
       await Batch.create(
         { year: batch, isAdmissionOpen, academicTermId: id },
