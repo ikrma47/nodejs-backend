@@ -52,6 +52,7 @@ function getApplications({
               ),
             ],
           },
+          required: false,
           include: [
             { model: Experience, attributes: [] },
             {
