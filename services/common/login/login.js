@@ -27,6 +27,7 @@ module.exports = async (req, res) => {
                 appId: user.appId,
                 email: user.email,
                 isVerified: user.isVerified,
+                batchId: user.batchId ? user.batchId : null,
               },
             ],
           });

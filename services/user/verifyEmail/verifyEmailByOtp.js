@@ -2,6 +2,7 @@ var { Op } = require('sequelize');
 const { issueJwt } = require('../../../lib/utils');
 var {
   Users,
+  Batch,
   ApplicationStatus,
   Details,
   Address,
@@ -21,8 +22,10 @@ module.exports = async (req, res) => {
       },
     });
     if (user) {
+      const batch = await Batch.findOne({ where: { isAdmissionOpen: true } });
       user.otp = null;
       user.isVerified = true;
+      user.batchId = batch.id;
 
       await ApplicationStatus.create({ appId: user.appId });
       await Details.create({ appId: user.appId });
@@ -68,6 +71,7 @@ module.exports = async (req, res) => {
             isAdmin: user.isAdmin,
             appId: user.appId,
             isVerified: user.isVerified,
+            batchId: user.batchId,
           },
         ],
       });
