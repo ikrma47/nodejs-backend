@@ -60,6 +60,8 @@ function UserModel(sequelize, DataTypes) {
       sourceKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
     });
+
+    Users.belongsTo(model.Batch);
   };
 
   return { Users };
