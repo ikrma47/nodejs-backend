@@ -55,6 +55,11 @@ function UserModel(sequelize, DataTypes) {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
       },
     });
+
+    Users.hasMany(model.SemesterEnrollment, {
+      sourceKey: 'appId',
+      foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
+    });
   };
 
   return { Users };
