@@ -21,6 +21,7 @@ function SemesterDetailModel(sequelize, DataTypes) {
     Batch.hasMany(model.SemesterDetail);
     Batch.hasMany(model.OfferedProgram);
     Batch.belongsTo(model.AcademicTerm);
+    Batch.hasMany(model.Users);
   };
 
   const Semester = sequelize.define('semester', {
