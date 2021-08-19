@@ -1,6 +1,6 @@
 var { Op } = require('sequelize');
 var {
-  Departments, Courses, DepartmentCourse, Details, CoursePreference,
+  Departments, Courses, DepartmentCourse, Details, CoursePreference, OfferedProgram,
 } = require('../../../models/models');
 
 module.exports = async (req, res) => {
@@ -9,26 +9,31 @@ module.exports = async (req, res) => {
       where: { appId: req.user.appId }, attributes: ['courseCategory'],
     });
     const appliedCourses = await CoursePreference.findAll({
-      attributes: ['courseId'],
+      // attributes: ['offeredProgramId'],
       where: { appId: req.user.appId },
     });
-    const ids = appliedCourses?.map((course) => course?.courseId);
-    const departmentCourses = await DepartmentCourse.findAll({
+    const ids = appliedCourses?.map(({ offeredProgramId }) => Number(offeredProgramId));
+    const offeredCourses = await OfferedProgram.findAll({
       where: {
-        courseCategory,
-        // courseId: { [Op.ne]: ids }
-        [Op.not]: [{ courseId: ids.length > 0 ? ids : [0] }],
+        // id: { [Op.ne]: ids }
+        batchId: req.user.batchId,
+        [Op.not]: [{ id: ids.length > 0 ? ids : [0] }],
       },
       attributes: [],
-      include: [
-        { model: Courses, attributes: ['id', 'courseName'] },
-        { model: Departments, attributes: ['departmentName'] },
-      ],
+      include: [{
+        model: DepartmentCourse,
+        attributes: ['id'],
+        where: { courseCategory },
+        include: [
+          { model: Departments, attributes: ['id', 'departmentName'] },
+          { model: Courses, attributes: ['id', 'courseName'] },
+        ],
+      }],
     });
     res.json({
-      success: !!departmentCourses.length,
-      message: `${departmentCourses.length > 0 ? 'successfully fetched' : 'no course found'}`,
-      data: [...departmentCourses],
+      success: !!offeredCourses.length,
+      message: `${offeredCourses.length > 0 ? 'successfully fetched' : 'no course found'}`,
+      data: [...offeredCourses],
     });
   } catch (err) {
     console.log(err);
