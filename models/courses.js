@@ -12,6 +12,15 @@ function CoursesModel(sequelize, DataTypes) {
 
   const CoursePreference = sequelize.define(
     'coursePreference',
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        unique: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+    },
     { isSelected: { type: DataTypes.BOOLEAN, defaultValue: false } },
     { freezeTableName: true, timestamps: false, createdAt: false },
   );
