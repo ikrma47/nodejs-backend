@@ -16,6 +16,14 @@ var {
   Preferences,
   ApplicationStatus,
   UploadedDocument,
+  Batch,
+  Semester,
+  SemesterCourse,
+  AcademicTerm,
+  SemesterDetail,
+  OfferedCourse,
+  SemesterEnrollment,
+  OfferedProgram,
 } = require('../models/models');
 
 (async () => {
@@ -52,6 +60,22 @@ var {
     console.log('application status table is synced');
     await UploadedDocument.sync({ alter: true });
     console.log('uploaded documents table is synced');
+    await Batch.sync({ alter: true });
+    console.log('Batch Table is synced');
+    await Semester.sync({ alter: true });
+    console.log('Semester Table is synced');
+    await SemesterCourse.sync({ alter: true });
+    console.log('SemesterCourse Table is synced');
+    await AcademicTerm.sync({ alter: true });
+    console.log('AcademicTerm Table is synced');
+    await SemesterDetail.sync({ alter: true });
+    console.log('SemesterDetail Table is synced');
+    await OfferedCourse.sync({ alter: true });
+    console.log('OfferedCourse Table is synced');
+    await SemesterEnrollment.sync({ alter: true });
+    console.log('SemesterEnrollment Table is synced');
+    await OfferedProgram.sync({ alter: true });
+    console.log('OfferedProgram Table is synced');
   } catch (err) {
     console.log('error is ', err);
   }

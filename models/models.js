@@ -9,8 +9,26 @@ var { Experience } = require('./experience')(sequelize, DataTypes);
 var { Preferences } = require('./preferences')(sequelize, DataTypes);
 var { Users } = require('./user')(sequelize, DataTypes);
 var { Details, PhoneNumbers, Address } = require('./userPersonalDetails')(sequelize, DataTypes);
+var {
+  Batch,
+  SemesterDetail,
+  Semester,
+  SemesterCourse,
+  AcademicTerm,
+  OfferedCourse,
+  SemesterEnrollment,
+  OfferedProgram,
+} = require('./semesterDetails')(sequelize, DataTypes);
 
 var models = {
+  Batch,
+  Semester,
+  SemesterCourse,
+  AcademicTerm,
+  SemesterDetail,
+  OfferedCourse,
+  SemesterEnrollment,
+  OfferedProgram,
   ExamYears,
   Academics,
   UserAcademicRecords,
