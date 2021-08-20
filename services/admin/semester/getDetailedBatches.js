@@ -4,7 +4,7 @@ var {
 
 module.exports = async (req, res) => {
   try {
-    const batch = await batch.findAll({
+    const batches = await batch.findAll({
       attributes: ['id', 'year'],
       order: [['year', 'DESC']],
       include: [
@@ -28,11 +28,11 @@ module.exports = async (req, res) => {
           ],
         }],
     });
-    if (batch.length > 0) {
+    if (batches.length > 0) {
       res.status(200).json({
         success: true,
         message: 'fetched successfully',
-        data: [...batch],
+        data: [...batches],
       });
     } else {
       res.status(200).json({

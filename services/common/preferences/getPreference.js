@@ -5,7 +5,7 @@ var {
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const preferences = await coursePreference.findAll({
+    const userPreferences = await coursePreference.findAll({
       where: { appId },
       attributes: [],
       include: [
@@ -29,8 +29,8 @@ module.exports = async (req, res) => {
     res.status(200).json({
       success: true,
       message:
-        `${preferences.length ? 'fetched preferences successfully' : "you haven't applied yet"}`,
-      data: [...preferences],
+        `${userPreferences.length ? 'fetched userPreferences successfully' : "you haven't applied yet"}`,
+      data: [...userPreferences],
     });
   } catch (err) {
     console.log(err);

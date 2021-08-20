@@ -17,12 +17,12 @@ module.exports = async (req, res) => {
     examination,
   } = req.body;
   try {
-    const examYear = await examYear.findOne({
+    const examyear = await examYear.findOne({
       where: { examination },
       attributes: ['id'],
     });
     const useracademicRecord = await userAcademicRecord.findOne({
-      where: { examYearId: examYear.id, appId: req.user.appId },
+      where: { examYearId: examyear.id, appId: req.user.appId },
       attributes: ['academicId'],
     });
 

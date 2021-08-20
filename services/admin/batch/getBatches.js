@@ -2,7 +2,7 @@ var { batch, academicTerm } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
-    const batch = await batch.findAll({
+    const batches = await batch.findAll({
       attributes: ['id', 'isAdmissionOpen', 'year'],
       order: [['year', 'DESC']],
       include: [{
@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
       res.status(200).json({
         success: true,
         message: 'fetched successfully',
-        data: [...batch],
+        data: [...batches],
       });
     } else {
       res.status(200).json({

@@ -7,18 +7,18 @@ var getBatches = require('./getBatches');
 
 module.exports = async (req, res) => {
   const {
-    batch, isAdmissionOpen, term,
+    batch: batchYear, isAdmissionOpen, term,
   } = req.body;
   try {
     const { id } = await academicTerm.findOne({ where: { termName: term } });
     const batchData = await batch.findOne({
       where: {
-        [Op.or]: [{ year: batch, academicTermId: id }, { isAdmissionOpen: true }],
+        [Op.or]: [{ year: batchYear, academicTermId: id }, { isAdmissionOpen: true }],
       },
     });
     if (!batchData) {
       await batch.create(
-        { year: batch, isAdmissionOpen, academicTermId: id },
+        { year: batchYear, isAdmissionOpen, academicTermId: id },
       );
       return await getBatches(req, res);
     }

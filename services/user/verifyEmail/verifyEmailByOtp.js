@@ -22,10 +22,10 @@ module.exports = async (req, res) => {
       },
     });
     if (user) {
-      const batch = await batch.findOne({ where: { isAdmissionOpen: true } });
+      const batchYear = await batch.findOne({ where: { isAdmissionOpen: true } });
       user.otp = null;
       user.isVerified = true;
-      user.batchId = batch.id;
+      user.batchId = batchYear.id;
 
       await applicationStatus.create({ appId: user.appId });
       await detail.create({ appId: user.appId });

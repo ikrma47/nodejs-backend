@@ -4,11 +4,11 @@ var getApplicationStatus = require('../../common/applicationStatus/getApplicatio
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const applicationStatus = await applicationStatus.update(
+    const applicationstatus = await applicationStatus.update(
       { ...req.body },
       { where: { appId } },
     );
-    if (applicationStatus) {
+    if (applicationstatus) {
       getApplicationStatus(req, res);
     } else {
       res.status(404).json({

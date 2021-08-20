@@ -3,14 +3,14 @@ var getSemesters = require('./getSemesters');
 
 module.exports = async (req, res) => {
   const {
-    batchId, programId, semester, semesterTerm,
+    batchId, programId, semester: semesterName, semesterTerm,
   } = req.body;
   console.log({
     batchId, programId, semester, semesterTerm,
   });
   try {
     const { id: semesterId } = await semester.findOne({
-      where: { semester },
+      where: { semester: semesterName },
       attributes: ['id'],
     });
     const { id: academicTermId } = await academicTerm.findOne({
