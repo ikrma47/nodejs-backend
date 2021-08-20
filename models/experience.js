@@ -19,6 +19,6 @@ function ExperienceModel(sequelize, DataTypes) {
     });
   };
 
-  return { Experience };
+  return Experience;
 }
 module.exports = ExperienceModel;

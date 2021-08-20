@@ -41,6 +41,6 @@ function ApplicationStatusModel(sequelize, DataTypes) {
     });
   };
 
-  return { ApplicationStatus };
+  return ApplicationStatus;
 }
 module.exports = ApplicationStatusModel;

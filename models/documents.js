@@ -26,7 +26,7 @@ function UploadDocumentModel(sequelize, DataTypes) {
     });
   };
 
-  return { UploadedDocument };
+  return UploadedDocument;
 }
 
 module.exports = UploadDocumentModel;

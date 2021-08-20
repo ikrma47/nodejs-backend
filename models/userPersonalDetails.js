@@ -1,40 +1,4 @@
-function ProfileModels(sequelize, DataTypes) {
-  const PhoneNumbers = sequelize.define(
-    'phoneNumber',
-    {
-      personalNumber: { type: DataTypes.STRING },
-      optionalNumber: { type: DataTypes.STRING },
-    },
-    { tableName: 'phoneNumbers', timestamps: false, createdAt: false },
-  );
-
-  PhoneNumbers.associate = function association(model) {
-    PhoneNumbers.belongsTo(model.Details, {
-      targetKey: 'appId',
-      foreignKey: {
-        name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
-      },
-    });
-  };
-
-  const Address = sequelize.define(
-    'address',
-    {
-      mailingAddress: { type: DataTypes.STRING },
-      residentialAddress: { type: DataTypes.STRING },
-    },
-    { freezeTableName: true, timestamps: false, createdAt: false },
-  );
-
-  Address.associate = function association(model) {
-    Address.belongsTo(model.Details, {
-      targetKey: 'appId',
-      foreignKey: {
-        name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
-      },
-    });
-  };
-
+function DetailModel(sequelize, DataTypes) {
   const Details = sequelize.define(
     'detail',
     {
@@ -71,7 +35,7 @@ function ProfileModels(sequelize, DataTypes) {
     });
   };
 
-  return { Details, PhoneNumbers, Address };
+  return Details;
 }
 
-module.exports = ProfileModels;
+module.exports = DetailModel;

@@ -64,7 +64,7 @@ function UserModel(sequelize, DataTypes) {
     Users.belongsTo(model.Batch);
   };
 
-  return { Users };
+  return Users;
 }
 
 module.exports = UserModel;

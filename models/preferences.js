@@ -10,6 +10,6 @@ function PreferenceModel(sequelize, DataTypes) {
     Preferences.hasMany(model.CoursePreference);
   };
 
-  return { Preferences };
+  return Preferences;
 }
 module.exports = PreferenceModel;

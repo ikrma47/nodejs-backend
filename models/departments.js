@@ -8,6 +8,6 @@ function DepartmentModel(sequelize, DataTypes) {
     Departments.belongsToMany(model.Courses, { through: model.DepartmentCourse });
   };
 
-  return { Departments };
+  return Departments;
 }
 module.exports = DepartmentModel;
