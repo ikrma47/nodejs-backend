@@ -1,4 +1,2 @@
 /node_modules
 /.env
-/migrations/20210819081213-addingPrimaryKeyToCoursePreferenceModel.js
-/migrations/20210612044314-removeAndAddingColumnBatchTable.js
