@@ -1,9 +1,15 @@
 {
   "development": {
-    "username": "node_user",
-    "password": "12345",
-    "database": "pgs_admission",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DB_CONNECTION_URI",
+    "logging": false
+  },
+  "production": {
+    "use_env_variable": "DB_CONNECTION_URI",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
