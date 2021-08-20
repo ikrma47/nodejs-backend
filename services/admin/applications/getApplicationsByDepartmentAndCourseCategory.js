@@ -1,23 +1,23 @@
 var {
-  ApplicationStatus, Users, Departments, CoursePreference, Courses,
+  applicationStatus, User, department, coursePreference, course,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { departmentId, courseCategory } = req.params;
   try {
-    const applications = await ApplicationStatus.findAll({
+    const applications = await applicationStatus.findAll({
       where: { isSubmitted: true },
       include: [{
-        model: Users,
+        model: User,
         where: { courseCategory },
         attributes: ['name'],
       }, {
-        model: Departments,
+        model: department,
         where: { id: departmentId },
       }, {
-        model: CoursePreference,
+        model: coursePreference,
         attributes: [],
-        include: [Courses],
+        include: [course],
       }],
     });
     res.json({

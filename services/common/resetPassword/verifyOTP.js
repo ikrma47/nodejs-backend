@@ -1,10 +1,10 @@
 var { Op } = require('sequelize');
-var { Users } = require('../../../models');
+var { User } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { otp, email } = req.body;
   try {
-    const user = await Users.findOne({
+    const user = await User.findOne({
       where: {
         [Op.and]: [{ otp }, { email }],
       },

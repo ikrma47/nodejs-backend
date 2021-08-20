@@ -1,5 +1,5 @@
 function DepartmentCourseModel(sequelize, DataTypes) {
-  const DepartmentCourse = sequelize.define(
+  const departmentCourse = sequelize.define(
     'departmentCourse',
     {
       id: {
@@ -14,14 +14,14 @@ function DepartmentCourseModel(sequelize, DataTypes) {
     { freezeTableName: true, timestamps: false, createdAt: false },
   );
 
-  DepartmentCourse.associate = function association(model) {
-    DepartmentCourse.belongsTo(model.department);
-    DepartmentCourse.belongsTo(model.course);
-    DepartmentCourse.hasMany(model.semesterDetail);
-    DepartmentCourse.hasMany(model.semesterCourse);
-    DepartmentCourse.hasMany(model.offeredProgram);
+  departmentCourse.associate = function association(model) {
+    departmentCourse.belongsTo(model.department);
+    departmentCourse.belongsTo(model.course);
+    departmentCourse.hasMany(model.semesterDetail);
+    departmentCourse.hasMany(model.semesterCourse);
+    departmentCourse.hasMany(model.offeredProgram);
   };
-  return DepartmentCourse;
+  return departmentCourse;
 }
 
 module.exports = DepartmentCourseModel;

@@ -14,18 +14,18 @@ var { expect } = chai;
 chai.use(sinonChai);
 
 describe('Documents Model', function test() {
-  const { Users } = UsersModel(sequelize, dataTypes);
-  const { Experience } = ExperienceModel(sequelize, dataTypes);
-  const experience = new Experience();
+  const { User } = UsersModel(sequelize, dataTypes);
+  const { experience } = ExperienceModel(sequelize, dataTypes);
+  const experience = new experience();
 
   before('creating associations', function associations() {
-    Experience.associate({ Users });
+    experience.associate({ User });
   });
 
-  checkModelName(Experience)('experience');
+  checkModelName(experience)('experience');
 
   it('should have associations exist', function associationTest() {
-    expect(Experience.belongsTo).to.have.been.calledWith(Users);
+    expect(experience.belongsTo).to.have.been.calledWith(User);
   });
 
   [

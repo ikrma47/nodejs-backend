@@ -1,16 +1,16 @@
 function CoursesModel(sequelize, DataTypes) {
-  const Courses = sequelize.define(
+  const course = sequelize.define(
     'course',
     { courseName: { type: DataTypes.STRING, allowNull: false } },
     { tableName: 'courses', timestamps: true, createdAt: true },
   );
 
-  Courses.associate = function association(model) {
-    Courses.belongsToMany(model.department, { through: model.departmentCourse });
-    Courses.hasMany(model.departmentCourse);
+  course.associate = function association(model) {
+    course.belongsToMany(model.department, { through: model.departmentCourse });
+    course.hasMany(model.departmentCourse);
   };
 
-  return Courses;
+  return course;
 }
 
 module.exports = CoursesModel;

@@ -14,24 +14,24 @@ var { expect } = chai;
 chai.use(sinonChai);
 
 describe('Profile Models', function tests() {
-  const { Details, PhoneNumbers, Address } = ProfileModels(sequelize, dataTypes);
-  const { Users } = UsersModel(sequelize, dataTypes);
+  const { detail, phoneNumber, address } = ProfileModels(sequelize, dataTypes);
+  const { User } = UsersModel(sequelize, dataTypes);
 
   before('creating associations', function associations() {
-    Details.associate({ Users, PhoneNumbers, Address });
-    PhoneNumbers.associate({ Details });
-    Address.associate({ Details });
+    detail.associate({ User, phoneNumber, address });
+    phoneNumber.associate({ detail });
+    address.associate({ detail });
   });
 
-  context('Details Model', function DetailModelTest() {
-    const details = new Details();
+  context('detail Model', function DetailModelTest() {
+    const details = new detail();
 
-    checkModelName(Details)('detail');
+    checkModelName(detail)('detail');
 
     it('should have associations exists', function associationsTest() {
-      expect(Details.hasOne).to.have.been.calledWith(Address);
-      expect(Details.belongsTo).to.have.been.calledWith(Users);
-      expect(Details.hasOne).to.have.been.calledWith(PhoneNumbers);
+      expect(detail.hasOne).to.have.been.calledWith(address);
+      expect(detail.belongsTo).to.have.been.calledWith(User);
+      expect(detail.hasOne).to.have.been.calledWith(phoneNumber);
     });
 
     [
@@ -47,24 +47,24 @@ describe('Profile Models', function tests() {
   });
 
   context('Phone Numbers Model', function PhNumModelTest() {
-    const phoneNumbers = new PhoneNumbers();
+    const phoneNumbers = new phoneNumber();
 
-    checkModelName(PhoneNumbers)('phoneNumber');
+    checkModelName(phoneNumber)('phoneNumber');
 
     it('should have associations exist', function associationsTest() {
-      expect(PhoneNumbers.belongsTo).to.have.been.calledWith(Details);
+      expect(phoneNumber.belongsTo).to.have.been.calledWith(detail);
     });
 
     ['personalNumber', 'optionalNumber'].forEach(checkPropertyExists(phoneNumbers));
   });
 
-  context('Address Model', function addressModelTest() {
-    const address = new Address();
+  context('address Model', function addressModelTest() {
+    const address = new address();
 
-    checkModelName(Address)('address');
+    checkModelName(address)('address');
 
     it('should have property exist', function associationTest() {
-      expect(Address.belongsTo).to.have.been.calledWith(Details);
+      expect(address.belongsTo).to.have.been.calledWith(detail);
     });
 
     ['mailingAddress', 'residentialAddress'].forEach(checkPropertyExists(address));

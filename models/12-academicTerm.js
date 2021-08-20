@@ -1,5 +1,5 @@
 function AcademicTermModel(sequelize, DataTypes) {
-  const AcademicTerm = sequelize.define('academicTerm', {
+  const academicTerm = sequelize.define('academicTerm', {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
@@ -13,11 +13,11 @@ function AcademicTermModel(sequelize, DataTypes) {
     },
   });
 
-  AcademicTerm.assoicate = function association(model) {
-    AcademicTerm.hasMany(model.SemesterDetail);
-    AcademicTerm.hasOne(model.Batch);
+  academicTerm.assoicate = function association(model) {
+    academicTerm.hasMany(model.semesterDetail);
+    academicTerm.hasOne(model.batch);
   };
-  return AcademicTerm;
+  return academicTerm;
 }
 
 module.exports = AcademicTermModel;

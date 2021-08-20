@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { ApplicationStatus, Details } = require('../../../../../models');
+var { applicationStatus, detail } = require('../../../../../models');
 var dashboard = require('../../../../../services/admin/dashboard/dashboard');
 
 const serviceResponse = {
@@ -13,8 +13,8 @@ const serviceResponse = {
 
 describe('GET admin Dashboard Service', function testing() {
   it('should respond with success response', async function tests() {
-    sinon.stub(ApplicationStatus, 'findAll').resolves([]);
-    sinon.stub(Details, 'findAll').resolves([]);
+    sinon.stub(applicationStatus, 'findAll').resolves([]);
+    sinon.stub(detail, 'findAll').resolves([]);
     const req = { params: {} };
     const res = {
       status: sinon.stub().returnsThis(),

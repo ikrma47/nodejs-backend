@@ -1,5 +1,5 @@
 function SemesterDetailModel(sequelize, DataTypes) {
-  const SemesterDetail = sequelize.define('semesterDetail', {
+  const semesterDetail = sequelize.define('semesterDetail', {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
@@ -9,16 +9,16 @@ function SemesterDetailModel(sequelize, DataTypes) {
     },
   });
 
-  SemesterDetail.associate = function association(model) {
-    SemesterDetail.belongsTo(model.batch);
-    SemesterDetail.belongsTo(model.semester);
-    SemesterDetail.belongsTo(model.academicTerm);
-    SemesterDetail.belongsTo(model.departmentCourse);
-    SemesterDetail.hasMany(model.offeredCourse);
-    SemesterDetail.hasMany(model.semesterEnrollment);
+  semesterDetail.associate = function association(model) {
+    semesterDetail.belongsTo(model.batch);
+    semesterDetail.belongsTo(model.semester);
+    semesterDetail.belongsTo(model.academicTerm);
+    semesterDetail.belongsTo(model.departmentCourse);
+    semesterDetail.hasMany(model.offeredCourse);
+    semesterDetail.hasMany(model.semesterEnrollment);
   };
 
-  return SemesterDetail;
+  return semesterDetail;
 }
 
 module.exports = SemesterDetailModel;

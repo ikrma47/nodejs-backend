@@ -1,28 +1,28 @@
 var {
-  Batch, AcademicTerm, OfferedProgram, Departments, Courses, DepartmentCourse,
+  batch, academicTerm, offeredProgram, department, course, departmentCourse,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
-    const batch = await Batch.findAll({
+    const batch = await batch.findAll({
       attributes: ['id', 'year'],
       order: [['year', 'DESC']],
       include: [
         {
-          model: AcademicTerm,
+          model: academicTerm,
           attributes: ['id', 'termName'],
         },
         {
-          model: OfferedProgram,
+          model: offeredProgram,
           attributes: ['id'],
           required: true,
           include: [
             {
-              model: DepartmentCourse,
+              model: departmentCourse,
               attributes: ['id', 'courseCategory'],
               include: [
-                { model: Departments, attributes: ['id', 'departmentName'] },
-                { model: Courses, attributes: ['id', 'courseName'] },
+                { model: department, attributes: ['id', 'departmentName'] },
+                { model: course, attributes: ['id', 'courseName'] },
               ],
             },
           ],

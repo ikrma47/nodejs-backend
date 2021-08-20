@@ -1,29 +1,29 @@
 var {
-  Preferences, CoursePreference, Courses, Departments, OfferedProgram, DepartmentCourse,
+  preferences, coursePreference, course, department, offeredProgram, departmentCourse,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const preferences = await CoursePreference.findAll({
+    const preferences = await coursePreference.findAll({
       where: { appId },
       attributes: [],
       include: [
         {
-          model: OfferedProgram,
+          model: offeredProgram,
           attributes: ['id'],
           include: [
             {
-              model: DepartmentCourse,
+              model: departmentCourse,
               attributes: ['id'],
               include: [
-                { model: Courses, attributes: ['id', 'courseName'] },
-                { model: Departments, attributes: ['id', 'departmentName'] },
+                { model: course, attributes: ['id', 'courseName'] },
+                { model: department, attributes: ['id', 'departmentName'] },
               ],
             },
           ],
         },
-        { model: Preferences, attributes: ['preference'] },
+        { model: preferences, attributes: ['preference'] },
       ],
     });
     res.status(200).json({

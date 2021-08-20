@@ -1,5 +1,5 @@
 function AddressModel(sequelize, DataTypes) {
-  const Address = sequelize.define(
+  const address = sequelize.define(
     'address',
     {
       mailingAddress: { type: DataTypes.STRING },
@@ -8,15 +8,15 @@ function AddressModel(sequelize, DataTypes) {
     { freezeTableName: true, timestamps: false, createdAt: false },
   );
 
-  Address.associate = function association(model) {
-    Address.belongsTo(model.detail, {
+  address.associate = function association(model) {
+    address.belongsTo(model.detail, {
       targetKey: 'appId',
       foreignKey: {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
       },
     });
   };
-  return Address;
+  return address;
 }
 
 module.exports = AddressModel;

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { Users } = require('../../../../../models');
+var { User } = require('../../../../../models');
 var verifyOTP = require('../../../../../services/common/resetPassword/verifyOTP');
 
 const dbResponse = {
@@ -19,7 +19,7 @@ const flushPromises = () => new Promise(setImmediate);
 describe('Verify OTP Service', function describing() {
   it('should verify OTP', async function testingVerifyOTPService() {
     const req = { body: {} };
-    sinon.stub(Users, 'findOne').resolves({ ...dbResponse });
+    sinon.stub(User, 'findOne').resolves({ ...dbResponse });
     const res = {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),

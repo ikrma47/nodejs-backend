@@ -1,12 +1,12 @@
-var { Courses, DepartmentCourse, Departments } = require('../../../models');
+var { course, departmentCourse, department } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
-    const courses = await DepartmentCourse.findAll({
+    const courses = await departmentCourse.findAll({
       attributes: ['courseCategory'],
       include: [
-        { model: Courses, attributes: ['courseName'] },
-        { model: Departments, attributes: ['departmentName'] },
+        { model: course, attributes: ['courseName'] },
+        { model: department, attributes: ['departmentName'] },
       ],
     });
     if (courses.length > 0) {
@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     } else {
       res.json({
         success: false,
-        message: 'no Departments yet!',
+        message: 'no department yet!',
         data: [],
       });
     }

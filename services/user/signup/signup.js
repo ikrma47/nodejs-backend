@@ -1,15 +1,15 @@
 var { Op } = require('sequelize');
 const { passwordHash, genOTP, sendOTP } = require('../../../lib/utils');
-var { Users } = require('../../../models');
+var { User } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { email, cnic, password } = req.body;
   try {
-    const user = await Users.findOne({
+    const user = await User.findOne({
       where: { [Op.or]: [{ cnic }, { email }] },
     });
     if (user == null) {
-      const newUser = await Users.create({
+      const newUser = await User.create({
         email,
         cnic,
         password: passwordHash(password),

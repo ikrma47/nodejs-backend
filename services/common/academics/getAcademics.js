@@ -1,21 +1,21 @@
 const { Op } = require('sequelize');
 var {
-  Academics,
-  ExamYears,
-  Details,
+  academics,
+  examYear,
+  detail,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const { courseCategory } = await Details.findOne({
+    const { courseCategory } = await detail.findOne({
       where: { appId },
       attributes: ['courseCategory'],
     });
-    const userAcademicRecords = await ExamYears.findAll({
+    const userAcademicRecords = await examYear.findAll({
       where: { examination: { [Op.ne]: `${courseCategory || 'MS'}` } },
       include: {
-        model: Academics,
+        model: academics,
         through: {
           attributes: [],
           where: { appId },

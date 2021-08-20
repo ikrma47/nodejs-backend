@@ -1,9 +1,9 @@
-const { Details } = require('../../../models');
+const { detail } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const user = await Details.findOne({
+    const user = await detail.findOne({
       where: { appId },
       attributes: ['appId', 'name', 'image', 'courseCategory'],
     });

@@ -1,28 +1,28 @@
 var {
-  Preferences, CoursePreference, Courses, OfferedProgram, DepartmentCourse, Details, Departments,
+  preferences, coursePreference, course, offeredProgram, departmentCourse, detail, department,
 } = require('../../../models');
 var getPreferences = require('../../common/preferences/getPreference');
 
 module.exports = async (req, res) => {
   const { preference, courseName, departmentName } = req.body;
   try {
-    const { courseCategory } = await Details.findOne({ where: { appId: req.user.appId } });
-    const { id: courseId } = await Courses.findOne({
+    const { courseCategory } = await detail.findOne({ where: { appId: req.user.appId } });
+    const { id: courseId } = await course.findOne({
       where: { courseName },
     });
-    const { id: departmentId } = await Departments.findOne({
+    const { id: departmentId } = await department.findOne({
       where: { departmentName },
     });
-    const { id: departmentCourseId } = await DepartmentCourse.findOne({
+    const { id: departmentCourseId } = await departmentCourse.findOne({
       where: { courseId, departmentId, courseCategory },
     });
-    const { id: offeredProgramId } = await OfferedProgram.findOne({
+    const { id: offeredProgramId } = await offeredProgram.findOne({
       where: { departmentCourseId, batchId: req.user.batchId },
     });
-    const { id: preferenceId } = await Preferences.findOne({
+    const { id: preferenceId } = await preferences.findOne({
       where: { preference },
     });
-    await CoursePreference.findOrCreate({
+    await coursePreference.findOrCreate({
       where: {
         offeredProgramId, preferenceId, appId: req.user.appId,
       },

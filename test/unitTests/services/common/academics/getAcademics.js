@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { Academics, ExamYears, Details } = require('../../../../../models');
+var { academics, examYear, detail } = require('../../../../../models');
 var getAcademics = require('../../../../../services/common/academics/getAcademics');
 
 const flushPromises = () => new Promise(setImmediate);
@@ -11,10 +11,10 @@ const serviceResponse = {
   data: [],
 };
 
-describe('GET Academics Serivce', function tests() {
+describe('GET academics Serivce', function tests() {
   it('should get the academics', async function getAcademicsTest() {
-    sinon.stub(Details, 'findOne').resolves({ courseCategory: 'MS' });
-    sinon.stub(ExamYears, 'findAll').resolves([]);
+    sinon.stub(detail, 'findOne').resolves({ courseCategory: 'MS' });
+    sinon.stub(examYear, 'findAll').resolves([]);
     const req = { params: { appId: 1 } };
     const res = {
       status: sinon.stub().returnsThis(),

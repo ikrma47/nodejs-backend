@@ -1,5 +1,5 @@
 function DetailModel(sequelize, DataTypes) {
-  const Details = sequelize.define(
+  const detail = sequelize.define(
     'detail',
     {
       name: { type: DataTypes.STRING },
@@ -14,20 +14,20 @@ function DetailModel(sequelize, DataTypes) {
     { tableName: 'details', timestamps: true, createdAt: true },
   );
 
-  Details.associate = function association(model) {
-    Details.hasOne(model.phoneNumber, {
+  detail.associate = function association(model) {
+    detail.hasOne(model.phoneNumber, {
       sourceKey: 'appId',
       foreignKey: {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
       },
     });
-    Details.belongsTo(model.User, {
+    detail.belongsTo(model.User, {
       targetKey: 'appId',
       foreignKey: {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
       },
     });
-    Details.hasOne(model.address, {
+    detail.hasOne(model.address, {
       sourceKey: 'appId',
       foreignKey: {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
@@ -35,7 +35,7 @@ function DetailModel(sequelize, DataTypes) {
     });
   };
 
-  return Details;
+  return detail;
 }
 
 module.exports = DetailModel;

@@ -1,23 +1,23 @@
 var { Op } = require('sequelize');
 var {
-  OfferedProgram, Departments, Courses,
+  offeredProgram, department, course,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { batchId } = req.params;
   try {
-    const ids = await OfferedProgram.findAll({
+    const ids = await offeredProgram.findAll({
       attributes: ['departmentCourseId'],
       where: { batchId },
     });
     if (ids.length > 0) {
       const flattenedIds = ids.map(({ departmentCourseId }) => departmentCourseId);
-      const departments = await Departments.findAll({
+      const departments = await department.findAll({
         attributes: ['id', 'departmentName'],
         include: [
           {
             right: true,
-            model: Courses,
+            model: course,
             attributes: ['id', 'courseName'],
             through: {
               attributes: ['id', 'courseCategory'],
@@ -32,11 +32,11 @@ module.exports = async (req, res) => {
         data: [...departments],
       });
     } else {
-      const departments = await Departments.findAll({
+      const departments = await department.findAll({
         attributes: ['id', 'departmentName'],
         include: [
           {
-            model: Courses,
+            model: course,
             attributes: ['id', 'courseName'],
             through: {
               attributes: ['id', 'courseCategory'],

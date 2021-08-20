@@ -1,5 +1,5 @@
 function SemesterModel(sequelize, DataTypes) {
-  const Semester = sequelize.define('semester', {
+  const semester = sequelize.define('semester', {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
@@ -13,10 +13,10 @@ function SemesterModel(sequelize, DataTypes) {
     },
   });
 
-  Semester.associate = function association(model) {
-    Semester.hasMany(model.semesterDetail);
+  semester.associate = function association(model) {
+    semester.hasMany(model.semesterDetail);
   };
-  return Semester;
+  return semester;
 }
 
 module.exports = SemesterModel;

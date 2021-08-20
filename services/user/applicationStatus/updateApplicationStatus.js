@@ -1,8 +1,8 @@
-var { ApplicationStatus } = require('../../../models');
+var { applicationStatus } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
-    const applicationStatus = await ApplicationStatus.update({ ...req.body }, {
+    const applicationStatus = await applicationStatus.update({ ...req.body }, {
       where: { appId: req.user.appId },
       returning: true,
     });

@@ -1,5 +1,5 @@
 function AcademicsModel(sequelize, DataTypes) {
-  const Academics = sequelize.define(
+  const academics = sequelize.define(
     'academics',
     {
       id: {
@@ -19,11 +19,11 @@ function AcademicsModel(sequelize, DataTypes) {
     },
     { freezeTableName: true, timestamps: false, createdAt: false },
   );
-  Academics.associate = function association(model) {
-    Academics.hasMany(model.userAcademicRecord);
-    Academics.belongsToMany(model.examYear, { through: model.userAcademicRecord });
+  academics.associate = function association(model) {
+    academics.hasMany(model.userAcademicRecord);
+    academics.belongsToMany(model.examYear, { through: model.userAcademicRecord });
   };
 
-  return Academics;
+  return academics;
 }
 module.exports = AcademicsModel;

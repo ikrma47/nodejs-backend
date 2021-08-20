@@ -1,5 +1,5 @@
 function SemesterCourseModel(sequelize, DataTypes) {
-  const SemesterCourse = sequelize.define('semesterCourse', {
+  const semesterCourse = sequelize.define('semesterCourse', {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
@@ -26,11 +26,11 @@ function SemesterCourseModel(sequelize, DataTypes) {
     },
   });
 
-  SemesterCourse.associate = function association(model) {
-    SemesterCourse.belongsTo(model.departmentCourse);
-    SemesterCourse.hasMany(model.offeredCourse);
+  semesterCourse.associate = function association(model) {
+    semesterCourse.belongsTo(model.departmentCourse);
+    semesterCourse.hasMany(model.offeredCourse);
   };
-  return SemesterCourse;
+  return semesterCourse;
 }
 
 module.exports = SemesterCourseModel;

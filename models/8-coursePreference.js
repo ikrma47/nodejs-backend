@@ -1,5 +1,5 @@
 function CoursePreferenceModel(sequelize, DataTypes) {
-  const CoursePreference = sequelize.define(
+  const coursePreference = sequelize.define(
     'coursePreference',
     {
       id: {
@@ -14,15 +14,15 @@ function CoursePreferenceModel(sequelize, DataTypes) {
     { freezeTableName: true, timestamps: false, createdAt: false },
   );
 
-  CoursePreference.associate = function association(model) {
-    CoursePreference.belongsTo(model.preference);
-    CoursePreference.belongsTo(model.offeredProgram);
-    CoursePreference.belongsTo(model.User, {
+  coursePreference.associate = function association(model) {
+    coursePreference.belongsTo(model.preference);
+    coursePreference.belongsTo(model.offeredProgram);
+    coursePreference.belongsTo(model.User, {
       targetKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT },
     });
   };
-  return CoursePreference;
+  return coursePreference;
 }
 
 module.exports = CoursePreferenceModel;

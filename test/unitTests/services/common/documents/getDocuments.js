@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { UploadedDocument } = require('../../../../../models');
+var { uploadedDocument } = require('../../../../../models');
 var getDocuments = require('../../../../../services/common/documents/getDocuments');
 
 const flushPromises = () => new Promise(setImmediate);
@@ -17,7 +17,7 @@ describe('GET Documents SERVICE', function testing() {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
-    sinon.stub(UploadedDocument, 'findOne').resolves({});
+    sinon.stub(uploadedDocument, 'findOne').resolves({});
     await getDocuments(req, res);
     await flushPromises();
     sinon.assert.calledWithExactly(res.status, 200);

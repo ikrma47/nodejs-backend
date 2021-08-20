@@ -1,5 +1,5 @@
 function OfferedProgramModel(sequelize, DataTypes) {
-  const OfferedProgram = sequelize.define('offeredProgram', {
+  const offeredProgram = sequelize.define('offeredProgram', {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
@@ -9,12 +9,12 @@ function OfferedProgramModel(sequelize, DataTypes) {
     },
   });
 
-  OfferedProgram.associate = function association(model) {
-    OfferedProgram.belongsTo(model.batch);
-    OfferedProgram.belongsTo(model.departmentCourse);
-    OfferedProgram.belongsToMany(model.preference, { through: model.coursePreference });
+  offeredProgram.associate = function association(model) {
+    offeredProgram.belongsTo(model.batch);
+    offeredProgram.belongsTo(model.departmentCourse);
+    offeredProgram.belongsToMany(model.preference, { through: model.coursePreference });
   };
-  return OfferedProgram;
+  return offeredProgram;
 }
 
 module.exports = OfferedProgramModel;

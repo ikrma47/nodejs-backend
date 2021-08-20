@@ -1,25 +1,25 @@
 var {
-  SemesterDetail, DepartmentCourse, Semester, AcademicTerm, Batch, Departments, Courses,
+  semesterDetail, departmentCourse, semester, academicTerm, batch, department, course,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
-    const semestersDetails = await SemesterDetail.findAll({
+    const semestersDetails = await semesterDetail.findAll({
       attributes: ['id'],
       include: [
         {
-          model: Batch,
+          model: batch,
           attributes: ['id', 'year'],
-          include: { model: AcademicTerm, attributes: ['id', 'termName'] },
+          include: { model: academicTerm, attributes: ['id', 'termName'] },
         },
-        { model: Semester, attributes: ['id', 'semester'] },
-        { model: AcademicTerm, attributes: ['id', 'termName'] },
+        { model: semester, attributes: ['id', 'semester'] },
+        { model: academicTerm, attributes: ['id', 'termName'] },
         {
-          model: DepartmentCourse,
+          model: departmentCourse,
           attributes: ['id', 'courseCategory'],
           include: [
-            { model: Departments },
-            { model: Courses }],
+            { model: department },
+            { model: course }],
         },
       ],
     });

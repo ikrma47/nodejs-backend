@@ -1,5 +1,5 @@
 var {
-  Departments, DepartmentCourse, Courses, OfferedProgram,
+  department, departmentCourse, course, offeredProgram,
 } = require('../../../models');
 const getProgramsToBeOffered = require('./getProgramsToBeOffered');
 
@@ -9,22 +9,22 @@ module.exports = async (req, res) => {
   try {
     programs.forEach(({ departmentName, courses }) => courses.forEach(
       ({ courseName, courseCategory }) => {
-        DepartmentCourse.findOne({
+        departmentCourse.findOne({
           where: { courseCategory },
           attributes: ['id'],
           include: [{
-            model: Departments,
+            model: department,
             where: { departmentName },
             attributes: [],
           },
           {
-            model: Courses,
+            model: course,
             where: { courseName },
             attributes: [],
           },
           ],
         }).then(
-          ({ id: departmentCourseId }) => OfferedProgram.create({ batchId, departmentCourseId }),
+          ({ id: departmentCourseId }) => offeredProgram.create({ batchId, departmentCourseId }),
         )
           .then(() => { getProgramsToBeOffered(req, res); });
       },

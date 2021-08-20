@@ -1,5 +1,5 @@
 function ApplicationStatusModel(sequelize, DataTypes) {
-  const ApplicationStatus = sequelize.define('applicationStatus',
+  const applicationStatus = sequelize.define('applicationStatus',
     {
       isSubmitted: { type: DataTypes.BOOLEAN, defaultValue: false },
       isAccepted: { type: DataTypes.BOOLEAN, defaultValue: false },
@@ -32,8 +32,8 @@ function ApplicationStatusModel(sequelize, DataTypes) {
     },
     { freezeTableName: true, createdAt: true, updatedAt: true });
 
-  ApplicationStatus.associate = function association(model) {
-    ApplicationStatus.belongsTo(model.User, {
+  applicationStatus.associate = function association(model) {
+    applicationStatus.belongsTo(model.User, {
       targetKey: 'appId',
       foreignKey: {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
@@ -41,6 +41,6 @@ function ApplicationStatusModel(sequelize, DataTypes) {
     });
   };
 
-  return ApplicationStatus;
+  return applicationStatus;
 }
 module.exports = ApplicationStatusModel;

@@ -1,5 +1,5 @@
 function SemesterEnrollmentModel(sequelize, DataTypes) {
-  const SemesterEnrollment = sequelize.define('semesterEnrollment', {
+  const semesterEnrollment = sequelize.define('semesterEnrollment', {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
@@ -9,15 +9,15 @@ function SemesterEnrollmentModel(sequelize, DataTypes) {
     },
   });
 
-  SemesterEnrollment.associate = function association(model) {
-    SemesterEnrollment.belongsTo(model.semesterDetail);
-    SemesterEnrollment.belongsTo(model.User, {
+  semesterEnrollment.associate = function association(model) {
+    semesterEnrollment.belongsTo(model.semesterDetail);
+    semesterEnrollment.belongsTo(model.User, {
       targetKey: 'appId',
       foreignKey: {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false,
       },
     });
   };
-  return SemesterEnrollment;
+  return semesterEnrollment;
 }
 module.exports = SemesterEnrollmentModel;

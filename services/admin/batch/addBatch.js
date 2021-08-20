@@ -1,7 +1,7 @@
 var { Op } = require('sequelize');
 var {
-  Batch,
-  AcademicTerm,
+  batch,
+  academicTerm,
 } = require('../../../models');
 var getBatches = require('./getBatches');
 
@@ -10,14 +10,14 @@ module.exports = async (req, res) => {
     batch, isAdmissionOpen, term,
   } = req.body;
   try {
-    const { id } = await AcademicTerm.findOne({ where: { termName: term } });
-    const batchData = await Batch.findOne({
+    const { id } = await academicTerm.findOne({ where: { termName: term } });
+    const batchData = await batch.findOne({
       where: {
         [Op.or]: [{ year: batch, academicTermId: id }, { isAdmissionOpen: true }],
       },
     });
     if (!batchData) {
-      await Batch.create(
+      await batch.create(
         { year: batch, isAdmissionOpen, academicTermId: id },
       );
       return await getBatches(req, res);

@@ -1,5 +1,5 @@
 function OfferedCourseModel(sequelize, DataTypes) {
-  const OfferedCourse = sequelize.define('offeredCourse', {
+  const offeredCourse = sequelize.define('offeredCourse', {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
@@ -9,11 +9,11 @@ function OfferedCourseModel(sequelize, DataTypes) {
     },
   });
 
-  OfferedCourse.associate = function association(model) {
-    OfferedCourse.belongsTo(model.semesterCourse);
-    OfferedCourse.belongsTo(model.semesterDetail);
+  offeredCourse.associate = function association(model) {
+    offeredCourse.belongsTo(model.semesterCourse);
+    offeredCourse.belongsTo(model.semesterDetail);
   };
-  return OfferedCourse;
+  return offeredCourse;
 }
 
 module.exports = OfferedCourseModel;

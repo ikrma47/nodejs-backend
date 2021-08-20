@@ -1,4 +1,4 @@
-var { AcademicTerm, Semester, SemesterDetail } = require('../../../models');
+var { academicTerm, semester, semesterDetail } = require('../../../models');
 var getSemesters = require('./getSemesters');
 
 module.exports = async (req, res) => {
@@ -9,22 +9,22 @@ module.exports = async (req, res) => {
     batchId, programId, semester, semesterTerm,
   });
   try {
-    const { id: semesterId } = await Semester.findOne({
+    const { id: semesterId } = await semester.findOne({
       where: { semester },
       attributes: ['id'],
     });
-    const { id: academicTermId } = await AcademicTerm.findOne({
+    const { id: academicTermId } = await academicTerm.findOne({
       where: { termName: semesterTerm },
       attributes: ['id'],
     });
     if (semesterId && academicTermId) {
-      const semesterDetails = await SemesterDetail.findOne({
+      const semesterDetails = await semesterDetail.findOne({
         where: {
           semesterId, batchId, academicTermId, departmentCourseId: programId,
         },
       });
       if (!semesterDetails) {
-        await SemesterDetail.create({
+        await semesterDetail.create({
           semesterId, batchId, academicTermId, departmentCourseId: programId,
         });
         return await getSemesters(req, res);

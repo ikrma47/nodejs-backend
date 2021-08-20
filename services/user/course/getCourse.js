@@ -1,19 +1,19 @@
 var { Op } = require('sequelize');
 var {
-  Departments, Courses, DepartmentCourse, Details, CoursePreference, OfferedProgram,
+  department, course, departmentCourse, detail, coursePreference, offeredProgram,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
-    const { courseCategory } = await Details.findOne({
+    const { courseCategory } = await detail.findOne({
       where: { appId: req.user.appId }, attributes: ['courseCategory'],
     });
-    const appliedCourses = await CoursePreference.findAll({
+    const appliedCourses = await coursePreference.findAll({
       // attributes: ['offeredProgramId'],
       where: { appId: req.user.appId },
     });
     const ids = appliedCourses?.map(({ offeredProgramId }) => Number(offeredProgramId));
-    const offeredCourses = await OfferedProgram.findAll({
+    const offeredCourses = await offeredProgram.findAll({
       where: {
         // id: { [Op.ne]: ids }
         batchId: req.user.batchId,
@@ -21,12 +21,12 @@ module.exports = async (req, res) => {
       },
       attributes: [],
       include: [{
-        model: DepartmentCourse,
+        model: departmentCourse,
         attributes: ['id'],
         where: { courseCategory },
         include: [
-          { model: Departments, attributes: ['id', 'departmentName'] },
-          { model: Courses, attributes: ['id', 'courseName'] },
+          { model: department, attributes: ['id', 'departmentName'] },
+          { model: course, attributes: ['id', 'courseName'] },
         ],
       }],
     });

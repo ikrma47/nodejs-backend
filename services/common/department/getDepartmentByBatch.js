@@ -1,23 +1,23 @@
 var { Op } = require('sequelize');
 var {
-  Departments, OfferedProgram, DepartmentCourse, Details,
+  department, offeredProgram, departmentCourse, detail,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { batchId } = req.params;
   try {
-    const { courseCategory = '%' } = await Details.findOne({
+    const { courseCategory = '%' } = await detail.findOne({
       attributes: ['courseCategory'],
       where: { appId: req.user.appId },
     });
-    const data = await OfferedProgram.findAll({
+    const data = await offeredProgram.findAll({
       where: { batchId },
       attributes: ['id'],
       include: [{
-        model: DepartmentCourse,
+        model: departmentCourse,
         attributes: ['id'],
         where: { courseCategory: { [Op.like]: courseCategory } },
-        include: [{ model: Departments, attributes: ['id', 'departmentName'] }],
+        include: [{ model: department, attributes: ['id', 'departmentName'] }],
       }],
     });
     res.json({

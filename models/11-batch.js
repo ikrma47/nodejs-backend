@@ -1,5 +1,5 @@
 function BatchModel(sequelize, DataTypes) {
-  const Batch = sequelize.define('batch', {
+  const batch = sequelize.define('batch', {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
@@ -17,12 +17,12 @@ function BatchModel(sequelize, DataTypes) {
     },
   });
 
-  Batch.associate = function association(model) {
-    Batch.hasMany(model.semesterDetail);
-    Batch.hasMany(model.offeredProgram);
-    Batch.belongsTo(model.academicTerm);
-    Batch.hasMany(model.User);
+  batch.associate = function association(model) {
+    batch.hasMany(model.semesterDetail);
+    batch.hasMany(model.offeredProgram);
+    batch.belongsTo(model.academicTerm);
+    batch.hasMany(model.User);
   };
-  return Batch;
+  return batch;
 }
 module.exports = BatchModel;

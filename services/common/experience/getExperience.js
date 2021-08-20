@@ -1,9 +1,9 @@
-var { Experience } = require('../../../models');
+var { experience } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const experience = await Experience.findAll({
+    const experience = await experience.findAll({
       where: { appId },
       attributes: { exclude: ['createdAt', 'updatedAt'] },
     });

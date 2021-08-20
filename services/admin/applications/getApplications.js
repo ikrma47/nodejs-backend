@@ -2,15 +2,15 @@ var { Op } = require('sequelize');
 var { sequelize } = require('../../../models');
 
 var {
-  Users,
-  Details,
-  Courses,
-  Experience,
-  Departments,
-  CoursePreference,
-  DepartmentCourse,
-  ApplicationStatus,
-  OfferedProgram,
+  User,
+  detail,
+  course,
+  experience,
+  department,
+  coursePreference,
+  departmentCourse,
+  applicationStatus,
+  offeredProgram,
 } = require('../../../models');
 
 const maximumNumber = 99999999;
@@ -30,7 +30,7 @@ function getApplications({
   isAccepted = true,
 } = {}) {
   try {
-    return Details.findAll({
+    return detail.findAll({
       attributes: ['appId', 'name', 'image', 'courseCategory'],
       where: {
         name: { [Op.like]: name == '%' ? name : `%${name}%` },
@@ -39,7 +39,7 @@ function getApplications({
       },
       include: [
         {
-          model: Users,
+          model: User,
           attributes: ['appId', 'cnic'],
           where: {
             isAdmin: false,
@@ -54,26 +54,26 @@ function getApplications({
           },
           required: false,
           include: [
-            { model: Experience, attributes: [] },
+            { model: experience, attributes: [] },
             {
-              model: ApplicationStatus,
+              model: applicationStatus,
               attributes: ['isAccepted', 'isSubmitted'],
               where: { [Op.and]: [{ isSubmitted: true }, { isAccepted }] },
             },
             {
-              model: CoursePreference,
+              model: coursePreference,
               attributes: [],
               include: [
                 {
-                  model: OfferedProgram,
+                  model: offeredProgram,
                   attributes: [],
                   include: [
                     {
-                      model: DepartmentCourse,
+                      model: departmentCourse,
                       attributes: [],
                       include: [
                         {
-                          model: Departments,
+                          model: department,
                           attributes: [],
                           where: {
                             departmentName: {
@@ -82,7 +82,7 @@ function getApplications({
                           },
                         },
                         {
-                          model: Courses,
+                          model: course,
                           attributes: [],
                           where: {
                             courseName: {

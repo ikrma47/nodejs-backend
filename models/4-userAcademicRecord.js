@@ -1,18 +1,18 @@
 function UserAcademicRecordModel(sequelize, DataTypes) {
-  const UserAcademicRecords = sequelize.define(
+  const userAcademicRecord = sequelize.define(
     'userAcademicRecord',
     {},
     { tableName: 'userAcademicRecords', timestamps: true, createdAt: true },
   );
-  UserAcademicRecords.associate = function association(model) {
-    UserAcademicRecords.belongsTo(model.academics);
-    UserAcademicRecords.belongsTo(model.examYear);
-    UserAcademicRecords.belongsTo(model.User, {
+  userAcademicRecord.associate = function association(model) {
+    userAcademicRecord.belongsTo(model.academics);
+    userAcademicRecord.belongsTo(model.examYear);
+    userAcademicRecord.belongsTo(model.User, {
       targetKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
     });
   };
-  return UserAcademicRecords;
+  return userAcademicRecord;
 }
 
 module.exports = UserAcademicRecordModel;

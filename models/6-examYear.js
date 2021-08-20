@@ -1,5 +1,5 @@
 function ExamYearModel(sequelize, DataTypes) {
-  const ExamYears = sequelize.define(
+  const examYear = sequelize.define(
     'examYear',
     {
       id: {
@@ -14,11 +14,11 @@ function ExamYearModel(sequelize, DataTypes) {
     { tableName: 'examYears', timestamps: false, createdAt: false },
   );
 
-  ExamYears.associate = function association(model) {
-    ExamYears.hasMany(model.userAcademicRecord);
-    ExamYears.belongsToMany(model.academics, { through: model.userAcademicRecord });
+  examYear.associate = function association(model) {
+    examYear.hasMany(model.userAcademicRecord);
+    examYear.belongsToMany(model.academics, { through: model.userAcademicRecord });
   };
-  return ExamYears;
+  return examYear;
 }
 
 module.exports = ExamYearModel;

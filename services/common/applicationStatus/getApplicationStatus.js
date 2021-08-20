@@ -1,10 +1,10 @@
-var { ApplicationStatus } = require('../../../models');
+var { applicationStatus } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
 
   try {
-    const applicationStatus = await ApplicationStatus.findOne({
+    const applicationStatus = await applicationStatus.findOne({
       where: { appId },
       attributes: { exclude: ['id', 'appId', 'createdAt', 'updatedAt'] },
     });

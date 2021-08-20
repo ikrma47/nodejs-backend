@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { Users } = require('../../../../../models');
+var { User } = require('../../../../../models');
 var resetPassword = require('../../../../../services/common/resetPassword/resetPassword');
 var utils = require('../../../../../lib/utils');
 
@@ -23,7 +23,7 @@ describe('Reset Password Service', function describing() {
   it('should Reset Password', async function testingVerifyOTPService() {
     const req = { body: { password, confirmPassword } };
     sinon.stub(utils, 'passwordHash');
-    sinon.stub(Users, 'findOne').resolves(dbResponse);
+    sinon.stub(User, 'findOne').resolves(dbResponse);
     const res = {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),

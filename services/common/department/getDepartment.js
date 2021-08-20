@@ -1,8 +1,8 @@
-var { Departments } = require('../../../models');
+var { department } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
-    const departments = await Departments.findAll({
+    const departments = await department.findAll({
       attributes: ['id', 'departmentName'],
     });
     res.status(200).json({

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { CoursePreference } = require('../../../../../models');
+var { coursePreference } = require('../../../../../models');
 var getPreference = require('../../../../../services/common/preferences/getPreference');
 
 const serviceResponse = {
@@ -12,9 +12,9 @@ const serviceResponse = {
 const flushPromises = () => new Promise(setImmediate);
 
 describe('GET Preference Service', function describing() {
-  it('should get Preferences', async function testinggetPreferenceService() {
+  it('should get preferences', async function testinggetPreferenceService() {
     const req = { params: {} };
-    sinon.stub(CoursePreference, 'findAll').resolves([]);
+    sinon.stub(coursePreference, 'findAll').resolves([]);
     const res = {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
