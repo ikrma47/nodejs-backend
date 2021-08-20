@@ -1,5 +1,5 @@
 var { Op } = require('sequelize');
-var { Users } = require('../../../models/models');
+var { Users } = require('../../../models');
 var utils = require('../../../lib/utils');
 
 module.exports = async (req, res) => {

@@ -1,5 +1,5 @@
 var { Op } = require('sequelize');
-var sequelize = require('../../../config/database');
+var { sequelize } = require('../../../models');
 
 var {
   Users,
@@ -11,7 +11,7 @@ var {
   DepartmentCourse,
   ApplicationStatus,
   OfferedProgram,
-} = require('../../../models/models');
+} = require('../../../models');
 
 const maximumNumber = 99999999;
 const smallestNumber = 0;

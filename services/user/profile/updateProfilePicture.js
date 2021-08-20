@@ -1,6 +1,6 @@
 var {
   Users, Details, PhoneNumbers, Address,
-} = require('../../../models/models');
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const { profilePicture } = req.body;

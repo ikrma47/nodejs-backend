@@ -1,6 +1,6 @@
 var {
   Users, Details, Address, PhoneNumbers,
-} = require('../../../models/models');
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const { courseCategory } = req.body;

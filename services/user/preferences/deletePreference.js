@@ -1,6 +1,6 @@
 var {
   Preferences, CoursePreference,
-} = require('../../../models/models');
+} = require('../../../models');
 var getPreference = require('../../common/preferences/getPreference');
 
 module.exports = async (req, res) => {

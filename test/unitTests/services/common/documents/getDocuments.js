@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { UploadedDocument } = require('../../../../../models/models');
+var { UploadedDocument } = require('../../../../../models');
 var getDocuments = require('../../../../../services/common/documents/getDocuments');
 
 const flushPromises = () => new Promise(setImmediate);

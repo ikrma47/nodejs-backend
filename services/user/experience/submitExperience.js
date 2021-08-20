@@ -1,4 +1,4 @@
-var { Experience } = require('../../../models/models');
+var { Experience } = require('../../../models');
 var getExperience = require('../../common/experience/getExperience');
 
 module.exports = async (req, res) => {

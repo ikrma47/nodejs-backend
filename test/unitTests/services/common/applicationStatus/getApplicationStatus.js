@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { ApplicationStatus } = require('../../../../../models/models');
+var { ApplicationStatus } = require('../../../../../models');
 var getApplicationStatus = require('../../../../../services/common/applicationStatus/getApplicationStatus');
 
 const flushPromises = () => new Promise(setImmediate);

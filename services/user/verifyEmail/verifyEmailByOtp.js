@@ -11,7 +11,7 @@ var {
   Academics,
   ExamYears,
   UploadedDocument,
-} = require('../../../models/models');
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const { otp, email } = req.body;

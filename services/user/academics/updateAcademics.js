@@ -2,7 +2,7 @@ var {
   Academics,
   ExamYears,
   UserAcademicRecords,
-} = require('../../../models/models');
+} = require('../../../models');
 var getAcademics = require('../../common/academics/getAcademics');
 
 module.exports = async (req, res) => {

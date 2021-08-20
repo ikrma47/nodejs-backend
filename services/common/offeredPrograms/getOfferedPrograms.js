@@ -1,7 +1,7 @@
 var { Op } = require('sequelize');
 var {
   OfferedProgram, DepartmentCourse, Courses, Departments,
-} = require('../../../models/models');
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const { batchId } = req.params;

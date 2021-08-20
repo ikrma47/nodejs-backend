@@ -1,6 +1,6 @@
 var { Op } = require('sequelize');
 const { passwordHash, genOTP, sendOTP } = require('../../../lib/utils');
-var { Users } = require('../../../models/models');
+var { Users } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { email, cnic, password } = req.body;

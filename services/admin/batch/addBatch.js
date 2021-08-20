@@ -2,7 +2,7 @@ var { Op } = require('sequelize');
 var {
   Batch,
   AcademicTerm,
-} = require('../../../models/models');
+} = require('../../../models');
 var getBatches = require('./getBatches');
 
 module.exports = async (req, res) => {

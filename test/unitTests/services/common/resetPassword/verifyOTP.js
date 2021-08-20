@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { Users } = require('../../../../../models/models');
+var { Users } = require('../../../../../models');
 var verifyOTP = require('../../../../../services/common/resetPassword/verifyOTP');
 
 const dbResponse = {

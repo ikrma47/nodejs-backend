@@ -1,6 +1,6 @@
 var {
   ApplicationStatus, Users, Departments, CoursePreference, Courses,
-} = require('../../../models/models');
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const { departmentId, courseCategory } = req.params;

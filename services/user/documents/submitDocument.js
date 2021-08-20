@@ -1,4 +1,4 @@
-var { UploadedDocument } = require('../../../models/models');
+var { UploadedDocument } = require('../../../models');
 
 module.exports = async (req, res) => {
   const bodyKeys = Object.keys(req.body);

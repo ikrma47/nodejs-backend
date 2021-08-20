@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { CoursePreference } = require('../../../../../models/models');
+var { CoursePreference } = require('../../../../../models');
 var getPreference = require('../../../../../services/common/preferences/getPreference');
 
 const serviceResponse = {

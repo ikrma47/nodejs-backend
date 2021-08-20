@@ -1,4 +1,4 @@
-var { AcademicTerm, Semester, SemesterDetail } = require('../../../models/models');
+var { AcademicTerm, Semester, SemesterDetail } = require('../../../models');
 var getSemesters = require('./getSemesters');
 
 module.exports = async (req, res) => {

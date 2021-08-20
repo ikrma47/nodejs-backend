@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
 var utils = require('../../../../../lib/utils');
-var { Users } = require('../../../../../models/models');
+var { Users } = require('../../../../../models');
 var login = require('../../../../../services/common/login/login');
 
 const dbRespone = {

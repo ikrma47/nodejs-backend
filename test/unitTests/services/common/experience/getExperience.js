@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { Experience } = require('../../../../../models/models');
+var { Experience } = require('../../../../../models');
 var getExperience = require('../../../../../services/common/experience/getExperience');
 
 const flushPromises = () => new Promise(setImmediate);

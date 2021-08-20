@@ -3,7 +3,7 @@ var {
   Address,
   PhoneNumbers,
   Details,
-} = require('../../../models/models');
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;

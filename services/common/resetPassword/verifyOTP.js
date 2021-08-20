@@ -1,5 +1,5 @@
 var { Op } = require('sequelize');
-var { Users } = require('../../../models/models');
+var { Users } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { otp, email } = req.body;

@@ -1,4 +1,4 @@
-var { Courses, DepartmentCourse, Departments } = require('../../../models/models');
+var { Courses, DepartmentCourse, Departments } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {

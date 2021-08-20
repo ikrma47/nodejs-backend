@@ -1,4 +1,4 @@
-var { ApplicationStatus } = require('../../../models/models');
+var { ApplicationStatus } = require('../../../models');
 var getApplicationStatus = require('../../common/applicationStatus/getApplicationStatus');
 
 module.exports = async (req, res) => {

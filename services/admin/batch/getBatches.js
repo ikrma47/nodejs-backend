@@ -1,4 +1,4 @@
-var { Batch, AcademicTerm } = require('../../../models/models');
+var { Batch, AcademicTerm } = require('../../../models');
 
 module.exports = async (req, res) => {
   try {

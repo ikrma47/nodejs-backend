@@ -1,6 +1,6 @@
 var {
   Departments, DepartmentCourse, Courses, OfferedProgram,
-} = require('../../../models/models');
+} = require('../../../models');
 const getProgramsToBeOffered = require('./getProgramsToBeOffered');
 
 module.exports = async (req, res) => {

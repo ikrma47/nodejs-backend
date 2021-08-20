@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
 // var faker = require('faker');
-var { Users } = require('../../../../../models/models');
+var { Users } = require('../../../../../models');
 var emailOTP = require('../../../../../services/common/emailOtp/emailOTP');
 var utils = require('../../../../../lib/utils');
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { Departments } = require('../../../../../models/models');
+var { Departments } = require('../../../../../models');
 var getDepartments = require('../../../../../services/common/department/getDepartment');
 
 const flushPromises = () => new Promise(setImmediate);

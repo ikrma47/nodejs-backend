@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { ApplicationStatus } = require('../../../../../models/models');
+var { ApplicationStatus } = require('../../../../../models');
 var updateApplicationStatus = require('../../../../../services/admin/applicationStatus/updateApplicationStatus');
 
 const serviceResponse = {

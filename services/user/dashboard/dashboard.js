@@ -1,4 +1,4 @@
-const { Details } = require('../../../models/models');
+const { Details } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;

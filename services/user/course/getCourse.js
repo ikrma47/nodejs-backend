@@ -1,7 +1,7 @@
 var { Op } = require('sequelize');
 var {
   Departments, Courses, DepartmentCourse, Details, CoursePreference, OfferedProgram,
-} = require('../../../models/models');
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   try {

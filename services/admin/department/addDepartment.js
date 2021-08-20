@@ -1,4 +1,4 @@
-var { Departments } = require('../../../models/models');
+var { Departments } = require('../../../models');
 var getDepartment = require('../../common/department/getDepartment');
 
 module.exports = async (req, res) => {

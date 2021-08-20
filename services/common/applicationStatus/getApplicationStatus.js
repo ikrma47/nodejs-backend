@@ -1,4 +1,4 @@
-var { ApplicationStatus } = require('../../../models/models');
+var { ApplicationStatus } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;

@@ -1,4 +1,4 @@
-var { Experience } = require('../../../models/models');
+var { Experience } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;

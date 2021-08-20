@@ -1,6 +1,6 @@
 var {
   SemesterDetail, DepartmentCourse, Semester, AcademicTerm, Batch, Departments, Courses,
-} = require('../../../models/models');
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
