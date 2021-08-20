@@ -7,8 +7,10 @@ var { sequelize } = require('../models');
     console.log('database is configured');
     await sequelize.sync({ alter: true });
     console.log('database is synced');
+    await require('../config/migratations')();
+    console.log('migrations successfull');
   } catch (err) {
-    console.log('error is ', err);
+    console.log('error is ', err.message);
   }
 })();
 
