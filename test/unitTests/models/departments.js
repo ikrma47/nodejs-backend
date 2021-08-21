@@ -14,20 +14,20 @@ var { expect } = chai;
 chai.use(sinonChai);
 
 describe('Department Model', function test() {
-  const { Departments } = DepartmentModel(sequelize, dataTypes);
-  const { Courses, DepartmentCourse } = CoursesModel(sequelize, dataTypes);
-  const departments = new Departments();
+  const { department } = DepartmentModel(sequelize, dataTypes);
+  const { course, departmentCourse } = CoursesModel(sequelize, dataTypes);
+  const departments = new department();
 
   before('creating associations', function associations() {
-    Departments.associate({ Courses, DepartmentCourse });
+    department.associate({ course, departmentCourse });
   });
 
-  checkModelName(Departments)('department');
+  checkModelName(department)('department');
 
   it('should have associations exist', function associationTest() {
-    expect(Departments.belongsToMany)
-      .to.have.been.calledWith(Courses, { through: DepartmentCourse });
-    expect(Departments.hasMany).to.have.been.calledWith(DepartmentCourse);
+    expect(department.belongsToMany)
+      .to.have.been.calledWith(course, { through: departmentCourse });
+    expect(department.hasMany).to.have.been.calledWith(departmentCourse);
   });
 
   ['departmentName'].forEach(checkPropertyExists(departments));

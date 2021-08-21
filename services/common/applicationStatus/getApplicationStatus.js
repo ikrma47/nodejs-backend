@@ -1,14 +1,14 @@
-var { ApplicationStatus } = require('../../../models/models');
+var { applicationStatus } = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
 
   try {
-    const applicationStatus = await ApplicationStatus.findOne({
+    const applicationstatus = await applicationStatus.findOne({
       where: { appId },
       attributes: { exclude: ['id', 'appId', 'createdAt', 'updatedAt'] },
     });
-    res.status(200).json({ success: true, message: 'Application status fetched successfully', data: [applicationStatus] });
+    res.status(200).json({ success: true, message: 'Application status fetched successfully', data: [applicationstatus] });
   } catch (error) {
     res.status(500).json({ success: false, message: 'server error', data: [] });
   }

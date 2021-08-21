@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
 var utils = require('../../../../../lib/utils');
-var { Users } = require('../../../../../models/models');
+var { User } = require('../../../../../models');
 var login = require('../../../../../services/common/login/login');
 
 const dbRespone = {
@@ -30,7 +30,7 @@ const flushPromises = () => new Promise(setImmediate);
 describe('Login Service', function describing() {
   it('should returns correct credentials', async function testingLoginService() {
     const req = { body: { emailOrCnic: 'abccc', password: 'dummy password' } };
-    sinon.stub(Users, 'findOne').resolves(dbRespone);
+    sinon.stub(User, 'findOne').resolves(dbRespone);
     sinon.stub(utils, 'verifyPassword').returns(true);
     sinon.stub(utils, 'issueJwt').returns('something');
     const res = {

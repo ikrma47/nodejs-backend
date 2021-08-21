@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { ApplicationStatus } = require('../../../../../models/models');
+var { applicationStatus } = require('../../../../../models');
 var updateApplicationStatus = require('../../../../../services/admin/applicationStatus/updateApplicationStatus');
 
 const serviceResponse = {
@@ -11,8 +11,8 @@ const serviceResponse = {
 
 describe('UPDATE Application Status Service', function testing() {
   it('should respond with success response', async function tests() {
-    sinon.stub(ApplicationStatus, 'update').resolves({});
-    sinon.stub(ApplicationStatus, 'findOne').resolves({});
+    sinon.stub(applicationStatus, 'update').resolves({});
+    sinon.stub(applicationStatus, 'findOne').resolves({});
     const req = { params: {} };
     const res = {
       status: sinon.stub().returnsThis(),

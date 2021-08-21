@@ -1,14 +1,14 @@
-var { ApplicationStatus } = require('../../../models/models');
+var { applicationStatus } = require('../../../models');
 var getApplicationStatus = require('../../common/applicationStatus/getApplicationStatus');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const applicationStatus = await ApplicationStatus.update(
+    const applicationstatus = await applicationStatus.update(
       { ...req.body },
       { where: { appId } },
     );
-    if (applicationStatus) {
+    if (applicationstatus) {
       getApplicationStatus(req, res);
     } else {
       res.status(404).json({

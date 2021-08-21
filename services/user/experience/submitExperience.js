@@ -1,4 +1,4 @@
-var { Experience } = require('../../../models/models');
+var { experience } = require('../../../models');
 var getExperience = require('../../common/experience/getExperience');
 
 module.exports = async (req, res) => {
@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   } = req.body;
   try {
     if (
-      !(await Experience.findOne({
+      !(await experience.findOne({
         where: {
           jobTitle,
           organization,
@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
         },
       }))
     ) {
-      await Experience.create({
+      await experience.create({
         jobTitle,
         organization,
         from,

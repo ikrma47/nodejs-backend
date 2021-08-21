@@ -1,11 +1,11 @@
-var { UploadedDocument } = require('../../../models/models');
+var { uploadedDocument } = require('../../../models');
 
 module.exports = async (req, res) => {
   const bodyKeys = Object.keys(req.body);
   const bodyValues = Object.values(req.body);
 
   try {
-    const documents = await UploadedDocument.findOne({ where: { appId: req.user.appId } });
+    const documents = await uploadedDocument.findOne({ where: { appId: req.user.appId } });
 
     bodyKeys.forEach((key, idx) => { documents[key] = bodyValues[idx]; });
     await documents.save();

@@ -1,23 +1,36 @@
 var {
-  Preferences, CoursePreference, Courses, Departments,
-} = require('../../../models/models');
+  preference, coursePreference, course, department, offeredProgram, departmentCourse,
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const { appId } = req.params;
   try {
-    const preferences = await CoursePreference.findAll({
+    const userPreferences = await coursePreference.findAll({
       where: { appId },
       attributes: [],
       include: [
-        { model: Courses, attributes: ['courseName'], include: [{ model: Departments, attributes: ['departmentName'] }] },
-        { model: Preferences, attributes: ['preference'] },
+        {
+          model: offeredProgram,
+          attributes: ['id'],
+          include: [
+            {
+              model: departmentCourse,
+              attributes: ['id'],
+              include: [
+                { model: course, attributes: ['id', 'courseName'] },
+                { model: department, attributes: ['id', 'departmentName'] },
+              ],
+            },
+          ],
+        },
+        { model: preference, attributes: ['preference'] },
       ],
     });
     res.status(200).json({
       success: true,
       message:
-        `${preferences.length ? 'fetched preferences successfully' : "you haven't applied yet"}`,
-      data: [...preferences],
+        `${userPreferences.length ? 'fetched userPreferences successfully' : "you haven't applied yet"}`,
+      data: [...userPreferences],
     });
   } catch (err) {
     console.log(err);

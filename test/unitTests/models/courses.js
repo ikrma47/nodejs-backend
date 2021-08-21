@@ -15,57 +15,57 @@ var PreferenceModel = require('../../../models/preferences');
 var { expect } = chai;
 chai.use(sinonChai);
 
-describe('Course And Preferences Models', function tests() {
-  const { Courses, CoursePreference, DepartmentCourse } = CoursesModel(sequelize, dataTypes);
-  const { Users } = UsersModel(sequelize, dataTypes);
-  const { Preferences } = PreferenceModel(sequelize, dataTypes);
-  const { Departments } = DepartmentsModel(sequelize, dataTypes);
-  const courses = new Courses();
-  const coursePreference = new CoursePreference();
-  const departmentCourse = new DepartmentCourse();
+describe('Course And preferences Models', function tests() {
+  const { course, coursePreference, departmentCourse } = CoursesModel(sequelize, dataTypes);
+  const { User } = UsersModel(sequelize, dataTypes);
+  const { preferences } = PreferenceModel(sequelize, dataTypes);
+  const { department } = DepartmentsModel(sequelize, dataTypes);
+  const courses = new course();
+  const coursePreference = new coursePreference();
+  const departmentCourse = new departmentCourse();
 
   before('creating association', function associations() {
-    Courses.associate({
-      Departments, DepartmentCourse, Preferences, CoursePreference,
+    course.associate({
+      department, departmentCourse, preferences, coursePreference,
     });
-    CoursePreference.associate({
-      Preferences, Users, Courses,
+    coursePreference.associate({
+      preferences, User, course,
     });
-    DepartmentCourse.associate({ Departments, Courses });
+    departmentCourse.associate({ department, course });
   });
 
-  context('Courses Model', function modelTests() {
-    checkModelName(Courses)('course');
+  context('course Model', function modelTests() {
+    checkModelName(course)('course');
 
     it('should have associations exists', function associationTest() {
-      expect(Courses.belongsToMany)
-        .to.have.been.calledWith(Departments, { through: DepartmentCourse });
-      expect(Courses.belongsToMany)
-        .to.have.been.calledWith(Preferences, { through: CoursePreference });
-      expect(Courses.hasMany).to.have.been.calledWith(DepartmentCourse);
-      expect(Courses.hasMany).to.have.been.calledWith(CoursePreference);
+      expect(course.belongsToMany)
+        .to.have.been.calledWith(department, { through: departmentCourse });
+      expect(course.belongsToMany)
+        .to.have.been.calledWith(preferences, { through: coursePreference });
+      expect(course.hasMany).to.have.been.calledWith(departmentCourse);
+      expect(course.hasMany).to.have.been.calledWith(coursePreference);
     });
 
     ['courseName'].forEach(checkPropertyExists(courses));
   });
 
   context('Course Preference Model', function modelTests() {
-    checkModelName(CoursePreference)('coursePreference');
+    checkModelName(coursePreference)('coursePreference');
 
     it('should have associations exist', function associationTest() {
-      expect(CoursePreference.belongsTo).to.have.been.calledWith(Preferences);
-      expect(CoursePreference.belongsTo).to.have.been.calledWith(Courses);
-      expect(CoursePreference.belongsTo).to.have.been.calledWith(Users);
+      expect(coursePreference.belongsTo).to.have.been.calledWith(preferences);
+      expect(coursePreference.belongsTo).to.have.been.calledWith(course);
+      expect(coursePreference.belongsTo).to.have.been.calledWith(User);
     });
 
     ['isSelected'].forEach(checkPropertyExists(coursePreference));
   });
   context('Course Department Model', function modelTests() {
-    checkModelName(DepartmentCourse)('departmentCourse');
+    checkModelName(departmentCourse)('departmentCourse');
 
     it('should have associations exist', function associationTest() {
-      expect(DepartmentCourse.belongsTo).to.have.been.calledWith(Departments);
-      expect(DepartmentCourse.belongsTo).to.have.been.calledWith(Courses);
+      expect(departmentCourse.belongsTo).to.have.been.calledWith(department);
+      expect(departmentCourse.belongsTo).to.have.been.calledWith(course);
     });
 
     ['courseCategory'].forEach(checkPropertyExists(departmentCourse));
