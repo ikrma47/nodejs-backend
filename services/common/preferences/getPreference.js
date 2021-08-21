@@ -1,5 +1,5 @@
 var {
-  preferences, coursePreference, course, department, offeredProgram, departmentCourse,
+  preference, coursePreference, course, department, offeredProgram, departmentCourse,
 } = require('../../../models');
 
 module.exports = async (req, res) => {
@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
             },
           ],
         },
-        { model: preferences, attributes: ['preference'] },
+        { model: preference, attributes: ['preference'] },
       ],
     });
     res.status(200).json({

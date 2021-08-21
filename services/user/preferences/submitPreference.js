@@ -1,10 +1,10 @@
 var {
-  preferences, coursePreference, course, offeredProgram, departmentCourse, detail, department,
+  preference, coursePreference, course, offeredProgram, departmentCourse, detail, department,
 } = require('../../../models');
 var getPreferences = require('../../common/preferences/getPreference');
 
 module.exports = async (req, res) => {
-  const { preference, courseName, departmentName } = req.body;
+  const { preference:userPreference, courseName, departmentName } = req.body;
   try {
     const { courseCategory } = await detail.findOne({ where: { appId: req.user.appId } });
     const { id: courseId } = await course.findOne({
@@ -19,8 +19,8 @@ module.exports = async (req, res) => {
     const { id: offeredProgramId } = await offeredProgram.findOne({
       where: { departmentCourseId, batchId: req.user.batchId },
     });
-    const { id: preferenceId } = await preferences.findOne({
-      where: { preference },
+    const { id: preferenceId } = await preference.findOne({
+      where: { preference:userPreference },
     });
     await coursePreference.findOrCreate({
       where: {

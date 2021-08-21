@@ -1,12 +1,12 @@
 var {
-  preferences, coursePreference,
+  preference, coursePreference,
 } = require('../../../models');
 var getPreference = require('../../common/preferences/getPreference');
 
 module.exports = async (req, res) => {
-  const { preference } = req.params;
+  const { preference: userPreference } = req.params;
   try {
-    const { id: preferenceId } = await preferences.findOne({ where: { preference } });
+    const { id: preferenceId } = await preference.findOne({ where: { preference:userPreference } });
     await coursePreference.destroy({
       where: { appId: req.user.appId, preferenceId },
     });
