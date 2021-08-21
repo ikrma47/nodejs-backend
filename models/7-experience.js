@@ -1,5 +1,5 @@
 function ExperienceModel(sequelize, DataTypes) {
-  const Experience = sequelize.define(
+  const experience = sequelize.define(
     'experience',
     {
       jobTitle: { type: DataTypes.STRING, allowNull: false },
@@ -12,13 +12,13 @@ function ExperienceModel(sequelize, DataTypes) {
     { freezeTableName: true, timestamps: true, createdAt: true },
   );
 
-  Experience.associate = function association(model) {
-    Experience.belongsTo(model.Users, {
+  experience.associate = function association(model) {
+    experience.belongsTo(model.User, {
       targetKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT },
     });
   };
 
-  return { Experience };
+  return experience;
 }
 module.exports = ExperienceModel;

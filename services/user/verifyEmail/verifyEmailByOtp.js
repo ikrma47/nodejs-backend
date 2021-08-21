@@ -1,34 +1,37 @@
 var { Op } = require('sequelize');
 const { issueJwt } = require('../../../lib/utils');
 var {
-  Users,
-  ApplicationStatus,
-  Details,
-  Address,
-  PhoneNumbers,
-  UserAcademicRecords,
-  Academics,
-  ExamYears,
-  UploadedDocument,
-} = require('../../../models/models');
+  User,
+  batch,
+  applicationStatus,
+  detail,
+  address,
+  phoneNumber,
+  userAcademicRecord,
+  academics,
+  examYear,
+  uploadedDocument,
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const { otp, email } = req.body;
   try {
-    const user = await Users.findOne({
+    const user = await User.findOne({
       where: {
         [Op.and]: [{ otp }, { email }],
       },
     });
     if (user) {
+      const batchYear = await batch.findOne({ where: { isAdmissionOpen: true } });
       user.otp = null;
       user.isVerified = true;
+      user.batchId = batchYear.id;
 
-      await ApplicationStatus.create({ appId: user.appId });
-      await Details.create({ appId: user.appId });
-      await Address.create({ appId: user.appId });
-      await PhoneNumbers.create({ appId: user.appId });
-      await UploadedDocument.create({ appId: user.appId });
+      await applicationStatus.create({ appId: user.appId });
+      await detail.create({ appId: user.appId });
+      await address.create({ appId: user.appId });
+      await phoneNumber.create({ appId: user.appId });
+      await uploadedDocument.create({ appId: user.appId });
 
       const [
         firstYear,
@@ -37,7 +40,7 @@ module.exports = async (req, res) => {
         finalYear,
         gat,
         ms,
-      ] = await ExamYears.findAll();
+      ] = await examYear.findAll();
 
       const [
         firstYearAcademics,
@@ -46,9 +49,9 @@ module.exports = async (req, res) => {
         finalYearAcademics,
         gatAcademics,
         msAcademics,
-      ] = await Academics.bulkCreate([{}, {}, {}, {}, {}, {}], { returning: true });
+      ] = await academics.bulkCreate([{}, {}, {}, {}, {}, {}], { returning: true });
 
-      await UserAcademicRecords.bulkCreate([
+      await userAcademicRecord.bulkCreate([
         { appId: user.appId, academicId: firstYearAcademics.id, examYearId: firstYear.id },
         { appId: user.appId, academicId: secondYearAcademics.id, examYearId: secondYear.id },
         { appId: user.appId, academicId: thirdYearAcademics.id, examYearId: thirdYear.id },
@@ -68,6 +71,7 @@ module.exports = async (req, res) => {
             isAdmin: user.isAdmin,
             appId: user.appId,
             isVerified: user.isVerified,
+            batchId: user.batchId,
           },
         ],
       });

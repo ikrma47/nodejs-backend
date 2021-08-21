@@ -1,5 +1,5 @@
 function UploadDocumentModel(sequelize, DataTypes) {
-  const UploadedDocument = sequelize.define(
+  const uploadedDocument = sequelize.define(
     'uploadedDocument',
     {
       cnicFront: { type: DataTypes.STRING },
@@ -19,14 +19,14 @@ function UploadDocumentModel(sequelize, DataTypes) {
     { tableName: 'uploadedDocuments', timestamps: true, createdAt: true },
   );
 
-  UploadedDocument.associate = function association(model) {
-    UploadedDocument.belongsTo(model.Users, {
+  uploadedDocument.associate = function association(model) {
+    uploadedDocument.belongsTo(model.User, {
       targetKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
     });
   };
 
-  return { UploadedDocument };
+  return uploadedDocument;
 }
 
 module.exports = UploadDocumentModel;

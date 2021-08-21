@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
 // var faker = require('faker');
-var { Users } = require('../../../../../models/models');
+var { User } = require('../../../../../models');
 var emailOTP = require('../../../../../services/common/emailOtp/emailOTP');
 var utils = require('../../../../../lib/utils');
 
@@ -30,7 +30,7 @@ describe('Email OTP SERVICE', function testing() {
     };
     sinon.stub(utils, 'genOTP');
     sinon.stub(utils, 'sendOTP').onCall({ otp, email, isVerified }).returns();
-    sinon.stub(Users, 'findOne').resolves(dbResponse);
+    sinon.stub(User, 'findOne').resolves(dbResponse);
     await emailOTP(req, res);
     await flushPromises();
     sinon.assert.calledWithExactly(res.status, 200);

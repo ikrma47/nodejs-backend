@@ -9,16 +9,16 @@ var sinon = require('sinon');
 var ApplicationStatusModel = require('../../../models/applicationStatus');
 var UsersModel = require('../../../models/user');
 
-describe('ApplicationStatus Model', function describing() {
-  const { Users } = UsersModel(sequelize, dataTypes);
-  const { ApplicationStatus } = ApplicationStatusModel(sequelize, dataTypes);
-  const AppStatus = new ApplicationStatus();
+describe('applicationStatus Model', function describing() {
+  const { User } = UsersModel(sequelize, dataTypes);
+  const { applicationStatus } = ApplicationStatusModel(sequelize, dataTypes);
+  const AppStatus = new applicationStatus();
 
   before('Creating association', function association() {
-    ApplicationStatus.associate({ Users });
+    applicationStatus.associate({ User });
   });
 
-  checkModelName(ApplicationStatus)('applicationStatus');
+  checkModelName(applicationStatus)('applicationStatus');
 
   context('should have properties', function checkingProperties() {
     [
@@ -53,7 +53,7 @@ describe('ApplicationStatus Model', function describing() {
     ].forEach(checkPropertyExists(AppStatus));
   });
 
-  it('should be associated with Users model', function checkAssociation() {
-    sinon.assert.calledWith(ApplicationStatus.belongsTo, Users);
+  it('should be associated with User model', function checkAssociation() {
+    sinon.assert.calledWith(applicationStatus.belongsTo, User);
   });
 });

@@ -17,5 +17,6 @@ router.use('/forget-password', require('./resetPassword'));
 router.use('/get-signed-url', require('./getSignedUrl'));
 router.use('/application-status', require('./applicationStatus'));
 router.use('/document', require('./documents'));
+router.use('/offered-programs', require('./offeredPrograms'));
 
 module.exports = router;

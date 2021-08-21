@@ -1,8 +1,8 @@
 var {
-  Academics,
-  ExamYears,
-  UserAcademicRecords,
-} = require('../../../models/models');
+  academics,
+  examYear,
+  userAcademicRecord,
+} = require('../../../models');
 var getAcademics = require('../../common/academics/getAcademics');
 
 module.exports = async (req, res) => {
@@ -17,16 +17,16 @@ module.exports = async (req, res) => {
     examination,
   } = req.body;
   try {
-    const examYear = await ExamYears.findOne({
+    const examyear = await examYear.findOne({
       where: { examination },
       attributes: ['id'],
     });
-    const useracademicRecord = await UserAcademicRecords.findOne({
-      where: { examYearId: examYear.id, appId: req.user.appId },
+    const useracademicRecord = await userAcademicRecord.findOne({
+      where: { examYearId: examyear.id, appId: req.user.appId },
       attributes: ['academicId'],
     });
 
-    await Academics.update({
+    await academics.update({
       yearHeld,
       maxMarks,
       obtainedMarks,

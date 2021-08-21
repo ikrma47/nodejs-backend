@@ -40,8 +40,8 @@
   },
   "scripts": {
     "unit-test": "mocha --recursive",
-    "configdb": "cd config && configdb.sh && cd ..",
-    "start": "npm run configdb && nodemon ./bin/server.js"
+    "dev": "nodemon ./bin/server.js",
+    "start": "node ./bin/server.js"
   },
   "author": "",
   "license": "ISC"

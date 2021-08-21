@@ -4,4 +4,5 @@ module.exports = {
   application: require('./applications'),
   dashboard: require('./dashboard'),
   applicationStatus: require('./applicationStatus'),
+  batch: require('./batch'),
 };

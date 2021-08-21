@@ -14,20 +14,20 @@ var { expect } = chai;
 chai.use(sinonChai);
 
 describe('Preference Model', function test() {
-  const { Preferences } = PreferenceModel(sequelize, dataTypes);
-  const { Courses, CoursePreference } = CoursesModel(sequelize, dataTypes);
-  const preferences = new Preferences();
+  const { preferences } = PreferenceModel(sequelize, dataTypes);
+  const { course, coursePreference } = CoursesModel(sequelize, dataTypes);
+  const preferences = new preferences();
 
   before('creating associations', function associations() {
-    Preferences.associate({ Courses, CoursePreference });
+    preferences.associate({ course, coursePreference });
   });
 
-  checkModelName(Preferences)('preference');
+  checkModelName(preferences)('preference');
 
   it('should have associations exist', function associationTest() {
-    expect(Preferences.belongsToMany)
-      .to.have.been.calledWith(Courses, { through: CoursePreference });
-    expect(Preferences.hasMany).to.have.been.calledWith(CoursePreference);
+    expect(preferences.belongsToMany)
+      .to.have.been.calledWith(course, { through: coursePreference });
+    expect(preferences.hasMany).to.have.been.calledWith(coursePreference);
   });
 
   ['preference'].forEach(checkPropertyExists(preferences));
