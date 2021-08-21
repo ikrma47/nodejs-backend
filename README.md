@@ -10,7 +10,7 @@ The **Frontend** repository for this App is at **[Frontend](https://www.github.c
 
 1. **[Installation](#installation "Installation")**
    - **[One Time Setup](#one-time-setup "setting up the app")**
-   - **[Starting the App](#starting-the-app "starting the app")**
+   - **[Starting the App](#start-script "Start Script")**
 2. **[How To Use](#how-to-use "how to use")**
 3. **[Features](#features "Features")**
 4. **[Report Issue](#issues-and-bugs)**
@@ -21,61 +21,31 @@ First you need to clone/download the project on your system. Make sure you have 
 
 Secondly the database **postgreSQL** should be installed on your system. If not then **[click to download](https://www.postgresql.org/download/ "postgres")**.
 
-Install the postgreSQL with **database cluster** configuration and also set the environment variables ( including password as **PGPASSWORD**) in your windows/OS environment to run the postgres shell from cmd/terminal. The environemnt variables maybe in **PG_env.bat** file of destination folder of setup installation.
+Install the postgreSQL along with **database cluster** 
 
 #### One Time Setup
 
-Open your shell/CMD and navigate to the directory of this project on your system and run the following commands to install the dependencies.
+Open your shell/CMD and navigate to the directory of this project on your system and run the following command to install the dependencies.
 
 ```bash
 npm install
-
-npm install sequelize-cli -g
 ```
 
-Make a .env file (if missing) in the root directory of the project. The variable in the .env files are
+Make a .env file (if missing) in the root directory of the project. The variable in the .env file are given in the .env-example file
 
-**.env-example**
-
-```env
-PASSPORT_SECRET=YOUR_PASSPORT_SECRET_HERE
-
-AWSAccessKeyId=AWS_ACCESS_KEY_ID_HERE
-
-AWSSecretKey=AWS_SECRET_KEY_HERE
-
-Bucket=BUCKET_NAME_HERE
-
-REGION=BUCKET_REGION_HERE
-
-FRONTEND_URL=FRONTEND_URL_HERE
-
-NO_REPLY_EMAIL=YOUR_NO_REPLY_EMAIL'S_ADDRESS_HERE
-
-NO_REPLY_EMAIL_PASSWORD=YOUR_NO_REPLY_EMAIL'S_PASSWORD_HERE
-
-PORT=YOUR_BACKEND_SERVER_PORT_HERE
-```
-
-Run the postgres migrations to populate the nesscary tables. Open your shell/CMD and navigate to the root directory of this project on your system and run the following command.
+#### Start Script
 
 ```bash
-sequelize db:migrate
+npm start
 ```
 
-#### Starting the Server
-
-**Make Sure GIT BASH is Installed ( For Windows users)**
-
-Open your **GIT BASH** terminal and navigate to the directory of this project on your system and run the `npm start` command every time you want to run the project.
-
-After running the `npm start` command, when the server gets functional, The First thing you need to do is to Make Sure Your **Frontend Server** is running. Click and follow details on the **[Frontend Server](https://www.github.com/ikrma47/react-frontend "frontend server")** to run the server.
+After the server start, also run the frontend web app . Click and follow details on the **[Frontend Server](https://www.github.com/ikrma47/react-frontend "frontend server")** to run the web app.
 
 ## How To Use
 
 When the both frontend and backend server are functional, follow the below steps
 
-1. Signup with your correct email.
+1. Signup with your correct email and CNIC.
 2. login with your email.
 3. verify your email **(For first time only)**.
 
