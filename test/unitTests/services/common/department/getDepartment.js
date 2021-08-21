@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-var { Departments } = require('../../../../../models/models');
+var { department } = require('../../../../../models');
 var getDepartments = require('../../../../../services/common/department/getDepartment');
 
 const flushPromises = () => new Promise(setImmediate);
@@ -12,7 +12,7 @@ describe('GET department SERIVCE', function testing() {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
-    sinon.stub(Departments, 'findAll').resolves([]);
+    sinon.stub(department, 'findAll').resolves([]);
     await getDepartments(req, res);
     await flushPromises();
     sinon.assert.calledWithExactly(res.status, 200);

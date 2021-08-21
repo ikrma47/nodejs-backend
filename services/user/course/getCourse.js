@@ -1,34 +1,39 @@
 var { Op } = require('sequelize');
 var {
-  Departments, Courses, DepartmentCourse, Details, CoursePreference,
-} = require('../../../models/models');
+  department, course, departmentCourse, detail, coursePreference, offeredProgram,
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   try {
-    const { courseCategory } = await Details.findOne({
+    const { courseCategory } = await detail.findOne({
       where: { appId: req.user.appId }, attributes: ['courseCategory'],
     });
-    const appliedCourses = await CoursePreference.findAll({
-      attributes: ['courseId'],
+    const appliedCourses = await coursePreference.findAll({
+      // attributes: ['offeredProgramId'],
       where: { appId: req.user.appId },
     });
-    const ids = appliedCourses?.map((course) => course?.courseId);
-    const departmentCourses = await DepartmentCourse.findAll({
+    const ids = appliedCourses?.map(({ offeredProgramId }) => Number(offeredProgramId));
+    const offeredCourses = await offeredProgram.findAll({
       where: {
-        courseCategory,
-        // courseId: { [Op.ne]: ids }
-        [Op.not]: [{ courseId: ids.length > 0 ? ids : [0] }],
+        // id: { [Op.ne]: ids }
+        batchId: req.user.batchId,
+        [Op.not]: [{ id: ids.length > 0 ? ids : [0] }],
       },
       attributes: [],
-      include: [
-        { model: Courses, attributes: ['id', 'courseName'] },
-        { model: Departments, attributes: ['departmentName'] },
-      ],
+      include: [{
+        model: departmentCourse,
+        attributes: ['id'],
+        where: { courseCategory },
+        include: [
+          { model: department, attributes: ['id', 'departmentName'] },
+          { model: course, attributes: ['id', 'courseName'] },
+        ],
+      }],
     });
     res.json({
-      success: !!departmentCourses.length,
-      message: `${departmentCourses.length > 0 ? 'successfully fetched' : 'no course found'}`,
-      data: [...departmentCourses],
+      success: !!offeredCourses.length,
+      message: `${offeredCourses.length > 0 ? 'successfully fetched' : 'no course found'}`,
+      data: [...offeredCourses],
     });
   } catch (err) {
     console.log(err);

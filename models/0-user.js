@@ -1,5 +1,5 @@
 function UserModel(sequelize, DataTypes) {
-  const Users = sequelize.define(
+  const User = sequelize.define(
     'User',
     {
       appId: {
@@ -21,43 +21,50 @@ function UserModel(sequelize, DataTypes) {
     },
   );
 
-  Users.associate = function association(model) {
-    Users.hasOne(model.ApplicationStatus, {
+  User.associate = function association(model) {
+    User.hasOne(model.applicationStatus, {
       sourceKey: 'appId',
       foreignKey: {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
       },
     });
 
-    Users.hasMany(model.UploadedDocument, {
+    User.hasMany(model.uploadedDocument, {
       sourceKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
     });
 
-    Users.hasMany(model.CoursePreference, {
+    User.hasMany(model.coursePreference, {
       sourceKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT },
     });
 
-    Users.hasMany(model.Experience, {
+    User.hasMany(model.experience, {
       sourceKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT },
     });
 
-    Users.hasMany(model.UserAcademicRecords, {
+    User.hasMany(model.userAcademicRecord, {
       sourceKey: 'appId',
       foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
     });
 
-    Users.hasOne(model.Details, {
+    User.hasOne(model.detail, {
       sourceKey: 'appId',
       foreignKey: {
         name: 'appId', type: DataTypes.BIGINT, allowNull: false, primaryKey: true, unique: true,
       },
     });
+
+    User.hasMany(model.semesterEnrollment, {
+      sourceKey: 'appId',
+      foreignKey: { name: 'appId', type: DataTypes.BIGINT, allowNull: false },
+    });
+
+    User.belongsTo(model.batch);
   };
 
-  return { Users };
+  return User;
 }
 
 module.exports = UserModel;

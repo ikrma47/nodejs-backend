@@ -1,6 +1,6 @@
 var {
-  Users, Details, Address, PhoneNumbers,
-} = require('../../../models/models');
+  User, detail, address, phoneNumber,
+} = require('../../../models');
 
 module.exports = async (req, res) => {
   const {
@@ -15,16 +15,16 @@ module.exports = async (req, res) => {
     residentialAddress,
   } = req.body;
   try {
-    const user = await Users.findOne({
+    const user = await User.findOne({
       where: { appId: req.user.appId },
       attributes: { exclude: ['updatedAt', 'createdAt'] },
       include: [
         {
-          model: Details,
+          model: detail,
           attributes: { exclude: ['updatedAt', 'createdAt'] },
           include: [
-            { model: Address },
-            { model: PhoneNumbers },
+            { model: address },
+            { model: phoneNumber },
           ],
         },
       ],

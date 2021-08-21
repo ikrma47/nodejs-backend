@@ -13,49 +13,49 @@ var UsersModel = require('../../../models/user');
 var { expect } = chai;
 chai.use(sinonChai);
 
-describe('#Academics Details Models', function test() {
-  const { ExamYears, Academics, UserAcademicRecords } = AcademicsModels(sequelize, dataTypes);
-  const Users = UsersModel(sequelize, dataTypes);
-  const examYears = new ExamYears();
-  const academics = new Academics();
-  const userAcademicRecords = new UserAcademicRecords();
+describe('#academics detail Models', function test() {
+  const { examYear, academics, userAcademicRecord } = AcademicsModels(sequelize, dataTypes);
+  const User = UsersModel(sequelize, dataTypes);
+  const examYears = new examYear();
+  const academics = new academics();
+  const userAcademicRecords = new userAcademicRecord();
 
   before('creating associations', function association() {
-    ExamYears.associate({ Academics, UserAcademicRecords });
-    Academics.associate({ ExamYears, UserAcademicRecords });
-    UserAcademicRecords.associate({ Academics, ExamYears, Users });
+    examYear.associate({ academics, userAcademicRecord });
+    academics.associate({ examYear, userAcademicRecord });
+    userAcademicRecord.associate({ academics, examYear, User });
   });
 
-  context('ExamYears Model', function testingModel() {
-    checkModelName(ExamYears)('examYear');
+  context('examYear Model', function testingModel() {
+    checkModelName(examYear)('examYear');
 
     it('Associations should exist', function testAssociations() {
-      expect(ExamYears.hasMany).to.have.been.calledWith(UserAcademicRecords);
-      expect(ExamYears.belongsToMany)
-        .to.have.been.calledWith(Academics, { through: UserAcademicRecords });
+      expect(examYear.hasMany).to.have.been.calledWith(userAcademicRecord);
+      expect(examYear.belongsToMany)
+        .to.have.been.calledWith(academics, { through: userAcademicRecord });
     });
 
     ['id', 'examination'].forEach(checkPropertyExists(examYears));
   });
 
-  context('Academics Model', function testingModel() {
-    checkModelName(Academics)('academics');
+  context('academics Model', function testingModel() {
+    checkModelName(academics)('academics');
 
     it('Associations should exist', function testAssociations() {
-      expect(Academics.hasMany).to.have.been.calledWith(UserAcademicRecords);
-      expect(Academics.belongsToMany)
-        .to.have.been.calledWith(ExamYears, { through: UserAcademicRecords });
+      expect(academics.hasMany).to.have.been.calledWith(userAcademicRecord);
+      expect(academics.belongsToMany)
+        .to.have.been.calledWith(examYear, { through: userAcademicRecord });
     });
 
     ['id', 'yearHeld', 'maxMarks', 'obtainedMarks', 'cgpa', 'awards', 'institute', 'majors'].forEach(checkPropertyExists(academics));
   });
-  context('User Academics Records Model', function testingModel() {
-    checkModelName(UserAcademicRecords)('userAcademicRecord');
+  context('User academics Records Model', function testingModel() {
+    checkModelName(userAcademicRecord)('userAcademicRecord');
 
     it('Associations should exist', function testAssociations() {
-      expect(UserAcademicRecords.belongsTo).to.have.been.calledWith(Academics);
-      expect(UserAcademicRecords.belongsTo).to.have.been.calledWith(ExamYears);
-      expect(UserAcademicRecords.belongsTo).to.have.been.calledWith(Users);
+      expect(userAcademicRecord.belongsTo).to.have.been.calledWith(academics);
+      expect(userAcademicRecord.belongsTo).to.have.been.calledWith(examYear);
+      expect(userAcademicRecord.belongsTo).to.have.been.calledWith(User);
     });
 
     [].forEach(checkPropertyExists(userAcademicRecords));

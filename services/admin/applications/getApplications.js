@@ -1,21 +1,109 @@
 var { Op } = require('sequelize');
-var sequelize = require('../../../config/database');
+var { sequelize } = require('../../../models');
 
 var {
-  Users,
-  Details,
-  Courses,
-  Experience,
-  Departments,
-  CoursePreference,
-  DepartmentCourse,
-  ApplicationStatus,
-} = require('../../../models/models');
+  User,
+  detail,
+  course,
+  experience,
+  department,
+  coursePreference,
+  departmentCourse,
+  applicationStatus,
+  offeredProgram,
+} = require('../../../models');
 
 const maximumNumber = 99999999;
 const smallestNumber = 0;
 const anyString = '%';
 
+function getApplications({
+  appId = anyString,
+  appIdGreaterThan = smallestNumber,
+  appIdSmallerThan = maximumNumber,
+  name = anyString,
+  cnic = anyString,
+  domicile = anyString,
+  courseCategory = anyString,
+  departmentName = anyString,
+  courseName = anyString,
+  isAccepted = true,
+} = {}) {
+  try {
+    return detail.findAll({
+      attributes: ['appId', 'name', 'image', 'courseCategory'],
+      where: {
+        name: { [Op.like]: name == '%' ? name : `%${name}%` },
+        domicile: { [Op.like]: domicile },
+        courseCategory: { [Op.like]: courseCategory },
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['appId', 'cnic'],
+          where: {
+            isAdmin: false,
+            cnic: { [Op.like]: cnic == '%' ? cnic : `%${cnic}%` },
+            [Op.or]: [
+              { appId: { [Op.between]: [appIdGreaterThan, appIdSmallerThan] } },
+              sequelize.where(
+                sequelize.cast(sequelize.col('User.appId'), 'varchar'),
+                { [Op.iLike]: appId == '%' ? appId : `%${appId}%` },
+              ),
+            ],
+          },
+          required: false,
+          include: [
+            { model: experience, attributes: [] },
+            {
+              model: applicationStatus,
+              attributes: ['isAccepted', 'isSubmitted'],
+              where: { [Op.and]: [{ isSubmitted: true }, { isAccepted }] },
+            },
+            {
+              model: coursePreference,
+              attributes: [],
+              include: [
+                {
+                  model: offeredProgram,
+                  attributes: [],
+                  include: [
+                    {
+                      model: departmentCourse,
+                      attributes: [],
+                      include: [
+                        {
+                          model: department,
+                          attributes: [],
+                          where: {
+                            departmentName: {
+                              [Op.like]: departmentName,
+                            },
+                          },
+                        },
+                        {
+                          model: course,
+                          attributes: [],
+                          where: {
+                            courseName: {
+                              [Op.like]: courseName,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+  } catch (error) {
+    return error;
+  }
+}
 module.exports = async (req, res) => {
   try {
     const applicants = await getApplications(req.query);
@@ -34,89 +122,4 @@ module.exports = async (req, res) => {
   }
 };
 
-module.exports.getApplications = function getApplications({
-  appId = anyString,
-  appIdGreaterThan = smallestNumber,
-  appIdSmallerThan = maximumNumber,
-  name = anyString,
-  cnic = anyString,
-  domicile = anyString,
-  courseCategory = anyString,
-  departmentName = anyString,
-  courseName = anyString,
-  isAccepted = true,
-} = {}) {
-  try {
-    return Details.findAll({
-      attributes: ['appId', 'name', 'image', 'courseCategory'],
-      where: {
-        name: { [Op.like]: name == '%' ? name : `%${name}%` },
-        domicile: { [Op.like]: domicile },
-        courseCategory: { [Op.like]: courseCategory },
-      },
-      include: [
-        {
-          model: Users,
-          attributes: ['appId', "cnic"],
-          where: {
-            isAdmin: false,
-            cnic: { [Op.like]: cnic == '%' ? cnic : `%${cnic}%` },
-            [Op.or]: [
-              { appId: { [Op.between]: [appIdGreaterThan, appIdSmallerThan] } },
-              sequelize.where(
-                sequelize.cast(sequelize.col('User.appId'), 'varchar'),
-                { [Op.iLike]: appId == '%' ? appId : `%${appId}%` },
-              ),
-            ],
-          },
-          include: [
-            { model: Experience, attributes: [] },
-            {
-              model: ApplicationStatus,
-              attributes: ['isAccepted', 'isSubmitted'],
-              where: { [Op.and]: [{ isSubmitted: true }, { isAccepted }] },
-            },
-            {
-              model: CoursePreference,
-              attributes: [],
-              include: [
-                {
-                  model: Courses,
-                  attributes: [],
-                  where: {
-                    courseName: {
-                      [Op.like]: courseName,
-                    },
-                  },
-                  // right: true,
-                  // required: false,
-                  include: [
-                    {
-                      model: DepartmentCourse,
-                      attributes: [],
-                      include: [
-                        {
-                          model: Departments,
-                          attributes: [],
-                          where: {
-                            departmentName: {
-                              [Op.like]: departmentName,
-                            },
-                          },
-                          // right: true,
-                          // required: false,
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    });
-  } catch (error) {
-    return error;
-  }
-};
+module.exports.getApplications = getApplications;

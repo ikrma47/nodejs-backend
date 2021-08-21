@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 var sinon = require('sinon');
-// var { Users } = require('../../../../../models/models');
+// var { User } = require('../../../../../models');
 var getAllApplications = require('../../../../../services/admin/applications/getAllApplications');
 
 describe('GET all applicants SERVICE', function testing() {

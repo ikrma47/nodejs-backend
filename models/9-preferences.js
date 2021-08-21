@@ -1,15 +1,15 @@
 function PreferenceModel(sequelize, DataTypes) {
-  var Preferences = sequelize.define(
+  var preference = sequelize.define(
     'preference',
     { preference: { type: DataTypes.STRING, allowNull: false } },
     { freezeTableName: true, timestamps: false, createdAt: false },
   );
 
-  Preferences.associate = function association(model) {
-    Preferences.belongsToMany(model.Courses, { through: model.CoursePreference });
-    Preferences.hasMany(model.CoursePreference);
+  preference.associate = function association(model) {
+    preference.belongsToMany(model.offeredProgram, { through: model.coursePreference });
+    preference.hasMany(model.coursePreference);
   };
 
-  return { Preferences };
+  return preference;
 }
 module.exports = PreferenceModel;

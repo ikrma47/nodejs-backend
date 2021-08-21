@@ -1,15 +1,15 @@
-var { Departments, Courses, DepartmentCourse } = require('../../../models/models');
+var { department, course, departmentCourse } = require('../../../models');
 var getCourse = require('./getCourse');
 
 module.exports = async (req, res) => {
   try {
     const { departmentName, courseName, courseCategory } = req.body;
-    const department = await Departments.findOne({ where: { departmentName } });
-    if (department) {
-      const course = await Courses.create({ courseName });
-      await DepartmentCourse.create({
-        departmentId: department.id,
-        courseId: course.id,
+    const Department = await department.findOne({ where: { departmentName } });
+    if (Department) {
+      const Course = await course.create({ courseName });
+      await departmentCourse.create({
+        departmentId: Department.id,
+        courseId: Course.id,
         courseCategory,
       });
     }

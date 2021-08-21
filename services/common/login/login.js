@@ -1,11 +1,11 @@
 var { Op } = require('sequelize');
-var { Users } = require('../../../models/models');
+var { User } = require('../../../models');
 var utils = require('../../../lib/utils');
 
 module.exports = async (req, res) => {
   const { emailOrCnic, password } = req.body;
   try {
-    const user = await Users.findOne({
+    const user = await User.findOne({
       where: { [Op.or]: [{ cnic: emailOrCnic }, { email: emailOrCnic }] },
     });
     if (user) {
@@ -27,6 +27,7 @@ module.exports = async (req, res) => {
                 appId: user.appId,
                 email: user.email,
                 isVerified: user.isVerified,
+                batchId: user.batchId ? user.batchId : null,
               },
             ],
           });
