@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
         attributes: ['id', 'termName'],
       }],
     });
-    if (batch.length > 0) {
+    if (batches.length > 0) {
       res.status(200).json({
         success: true,
         message: 'fetched successfully',
